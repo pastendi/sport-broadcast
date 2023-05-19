@@ -9,11 +9,12 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 // routes
-
+const userRouter = require('./routes/userRoutes')
 // pipelines
 app.get('/', (req, res) => {
   res.json('hello')
 })
+app.use('/api/user', userRouter)
 // middleware
 app.use(notFound)
 app.use(errorHandler)
