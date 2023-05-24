@@ -24,6 +24,7 @@ const UserSchema = new mongoose.Schema(
     password: {
       type: String,
       required: [true, 'Password required'],
+      select: false,
     },
     isBlocked: {
       type: Boolean,
@@ -33,7 +34,7 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    active: {
+    isActive: {
       type: Boolean,
       default: false,
     },

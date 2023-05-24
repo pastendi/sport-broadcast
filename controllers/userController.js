@@ -16,7 +16,11 @@ const register = async (req, res) => {
   const user = await User.create(req.body)
   const token = createJWT(user._id)
   res.status(StatusCodes.CREATED).json({
-    user,
+    user: {
+      id: user._id,
+      username: user.firstName,
+      email: user.email,
+    },
     token,
     msg: 'User registered successfully',
   })
@@ -26,7 +30,7 @@ const login = async (req, res) => {
   if (!email || !password) {
     throw new UnauthenticatedError('Please provide email and password')
   }
-  const user = await User.findOne({ email })
+  const user = await User.findOne({ email }).select('+password')
   if (user.isBlocked) {
     throw new UnauthorizedError('Currently you are blocked')
   }
@@ -35,9 +39,22 @@ const login = async (req, res) => {
     throw new UnauthenticatedError('Invalid Credentials')
   }
   const token = createJWT(user._id)
-  res.status(StatusCodes.OK).json({ user, token, msg: 'Login successful' })
+  res.status(StatusCodes.OK).json({
+    user: {
+      id: user._id,
+      username: user.firstName,
+      email: user.email,
+    },
+    token,
+    msg: 'Login successful',
+  })
 }
 const getUsers = async (req, res) => {
+  const user = await User.findById(req.userId)
+  if (!user.isAdmin) {
+    throw new UnauthorizedError('Sorry but you are not admin')
+  }
+
   const users = await User.find({ isAdmin: false })
   res.json(users)
 }
