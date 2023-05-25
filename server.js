@@ -11,12 +11,14 @@ app.use(cors())
 // routes
 const userRouter = require('./routes/userRoutes')
 const sportRouter = require('./routes/sportRoutes')
+const videoRouter = require('./routes/videoRoutes')
 // pipelines
 app.get('/', (req, res) => {
   res.json('hello')
 })
 app.use('/api/user', userRouter)
 app.use('/api/sport', sportRouter)
+app.use('/api/video', videoRouter)
 // middleware
 app.use(notFound)
 app.use(errorHandler)
