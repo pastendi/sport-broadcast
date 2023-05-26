@@ -50,11 +50,6 @@ const login = async (req, res) => {
   })
 }
 const getUsers = async (req, res) => {
-  const user = await User.findById(req.userId)
-  if (!user.isAdmin) {
-    throw new UnauthorizedError('Sorry but you are not admin')
-  }
-
   const users = await User.find({ isAdmin: false })
   res.json(users)
 }

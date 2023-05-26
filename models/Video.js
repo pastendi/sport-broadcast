@@ -10,6 +10,10 @@ const VideoSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Video description required'],
     },
+    url: {
+      type: String,
+      required: [true, 'Url of video is required'],
+    },
     thumbnail: {
       type: String,
       required: [true, 'Thumbnail required'],
