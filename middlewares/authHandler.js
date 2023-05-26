@@ -24,7 +24,6 @@ const adminCheck = async (req, res, next) => {
   const token = authHeader.split(' ')[1]
   const payload = jwt.verify(token, process.env.JWT_SECRET)
   const user = await User.findById(payload.id)
-  console.log(user)
   if (!user.isAdmin) {
     throw new UnauthorizedError('Sorry but you are not admin')
   }
