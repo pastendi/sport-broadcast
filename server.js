@@ -14,6 +14,7 @@ const sportRouter = require('./routes/sportRoutes')
 const videoRouter = require('./routes/videoRoutes')
 const commentRouter = require('./routes/commentRoutes')
 const carouselRouter = require('./routes/carouselRoutes')
+const chatRouter = require('./routes/chatRoutes')
 // pipelines
 app.get('/', (req, res) => {
   res.json('hello')
@@ -23,6 +24,7 @@ app.use('/api/sport', sportRouter)
 app.use('/api/video', videoRouter)
 app.use('/api/comment', commentRouter)
 app.use('/api/carousel', carouselRouter)
+app.use('/api/chat', chatRouter)
 // middleware
 app.use(notFound)
 app.use(errorHandler)

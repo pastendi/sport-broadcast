@@ -4,16 +4,12 @@ const { adminCheck } = require('../middlewares/authHandler')
 
 const {
   createComment,
-  getComment,
   deleteComment,
   getAllComments,
 } = require('../controllers/commentController')
 
 router.route('/').post(createComment)
-router.route('/all/:id').get(getAllComments)
-router
-  .route('/:id')
-  .delete(adminCheck, deleteComment)
-  .get(adminCheck, getComment)
+router.route('/all/:videoId').get(getAllComments)
+router.route('/:id').delete(adminCheck, deleteComment)
 
 module.exports = router

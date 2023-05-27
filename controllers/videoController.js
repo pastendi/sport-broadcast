@@ -64,7 +64,10 @@ const getVideo = async (req, res) => {
       options: { sort: { createdAt: -1 } },
       populate: { path: 'userId', select: ['firstName', 'email'] },
     })
-    .sort({})
+    .populate({
+      path: 'chats',
+      populate: { path: 'userId', select: ['firstName', 'email'] },
+    })
   res.status(StatusCodes.OK).json({ video })
 }
 

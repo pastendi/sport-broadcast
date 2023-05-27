@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 
-const CommentSchema = new mongoose.Schema(
+const ChatSchema = new mongoose.Schema(
   {
-    comment: {
+    message: {
       type: String,
-      required: [true, 'Comment message required'],
+      required: [true, 'Chat message required'],
     },
     videoId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -27,4 +27,4 @@ const CommentSchema = new mongoose.Schema(
   }
 )
 
-module.exports = mongoose.model('Comment', CommentSchema)
+module.exports = mongoose.model('Chat', ChatSchema)

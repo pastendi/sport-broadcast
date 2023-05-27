@@ -10,6 +10,10 @@ const VideoSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Video description required'],
     },
+    live: {
+      type: Boolean,
+      default: false,
+    },
     url: {
       type: String,
       required: [true, 'Url of video is required'],
@@ -54,6 +58,11 @@ const VideoSchema = new mongoose.Schema(
 )
 VideoSchema.virtual('comments', {
   ref: 'Comment',
+  foreignField: 'videoId',
+  localField: '_id',
+})
+VideoSchema.virtual('chats', {
+  ref: 'Chat',
   foreignField: 'videoId',
   localField: '_id',
 })

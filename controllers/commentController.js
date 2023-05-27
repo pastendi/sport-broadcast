@@ -4,12 +4,11 @@ const Filter = require('bad-words')
 const filter = new Filter()
 
 const createComment = async (req, res) => {
-  const userId = req.userId
   const { comment, videoId } = req.body
   const cleanComment = filter.clean(comment)
   const newComment = await Comment.create({
     comment: cleanComment,
-    userId,
+    userId: req.userId,
     videoId,
   })
   res
@@ -17,12 +16,8 @@ const createComment = async (req, res) => {
     .json({ comment: newComment, msg: 'Comment added' })
 }
 
-const getComment = async (req, res) => {
-  const comment = await Comment.findById(req.params.id)
-  res.status(StatusCodes.OK).json({ comment })
-}
 const getAllComments = async (req, res) => {
-  const comments = await Comment.find({ videoId: req.params.id }).sort({
+  const comments = await Comment.find({ videoId: req.params.videoId }).sort({
     createdAt: -1,
   })
   res.status(StatusCodes.OK).json({ comments })
@@ -32,4 +27,4 @@ const deleteComment = async (req, res) => {
   res.status(StatusCodes.OK).json({ comment })
 }
 
-module.exports = { createComment, getComment, getAllComments, deleteComment }
+module.exports = { createComment, getAllComments, deleteComment }
