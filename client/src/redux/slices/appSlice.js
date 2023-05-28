@@ -4,7 +4,7 @@ const appSlice = createSlice({
   name: 'app',
   initialState: {
     showLoginModal: false,
-    showRegisterModal: true,
+    showRegisterModal: false,
   },
   reducers: {
     setShowLoginModal: (state, action) => {
