@@ -5,18 +5,18 @@ import { AiOutlineMessage } from 'react-icons/ai'
 import { FiUsers } from 'react-icons/fi'
 
 export const adminNavLinks = [
-  { text: 'Dashboard', path: '/admin/', icon: <IoBarChartSharp /> },
+  { text: 'Dashboard', path: '/admin/', icon: IoBarChartSharp },
   {
     text: 'Customization',
     path: '/admin/customization',
-    icon: <BiCustomize />,
+    icon: BiCustomize,
   },
-  { text: 'Users', path: '/admin/users', icon: <FiUsers /> },
-  { text: 'Videos', path: '/admin/videos', icon: <FaPhotoVideo /> },
+  { text: 'Users', path: '/admin/users', icon: FiUsers },
+  { text: 'Videos', path: '/admin/videos', icon: FaPhotoVideo },
   {
     text: 'Message',
     path: '/admin/message',
-    icon: <AiOutlineMessage />,
+    icon: AiOutlineMessage,
   },
 ]
 

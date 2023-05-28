@@ -7,6 +7,12 @@
     @apply w-full h-full object-cover;
   }
   .btn {
-    @apply block py-1 px-3 rounded-md text-white;
+    @apply block py-1 px-3 rounded-md text-white font-semibold;
+  }
+  .nav-link {
+    @apply text-white text-xl font-semibold capitalize hover:border-b-2;
+  }
+  .mobile-link {
+    @apply block tracking-widest w-full capitalize py-6 text-2xl text-center text-white font-semibold;
   }
 }
