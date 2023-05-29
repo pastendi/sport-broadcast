@@ -5,9 +5,9 @@ const carouselSchema = mongoose.Schema(
       type: String,
       required: [true, 'Image title is required'],
     },
-    image: {
+    src: {
       type: String,
-      required: [true, 'Image is required'],
+      required: [true, 'Image source is required'],
     },
     cloudinaryName: {
       type: String,

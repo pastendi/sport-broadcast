@@ -20,7 +20,7 @@ const UserNav = () => {
   const [menuClicked, setMenuClicked] = useState(false)
   return (
     <main>
-      <div className='flex items-center justify-between space-x-10'>
+      <div className='flex items-center justify-between space-x-10 py-2'>
         <div
           className='flex items-center z-30 cursor-pointer'
           onClick={() => navigate('/')}
