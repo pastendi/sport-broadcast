@@ -8,6 +8,7 @@ import {
   setShowRegisterModal,
   toggleLoginRegister,
 } from '../redux/slices/appSlice'
+import Errors from './Form/Errors'
 const initial = {
   firstName: '',
   lastName: '',
@@ -20,16 +21,19 @@ const RegisterModal = () => {
   const [values, setValues] = useState(initial)
 
   const userData = useSelector((store) => store.users)
-  const { loading, appErr, serverErr, registered } = userData
+  const { loading, appErr, serverErr, registered, userAuth } = userData
   const register = () => {
     dispatch(registerUserAction(values))
   }
   const handleChange = ({ currentTarget: input }) => {
     setValues({ ...values, [input.name]: input.value })
   }
+  if (userAuth) {
+    dispatch(setShowRegisterModal(false))
+  }
   const body = (
     <div className='flex flex-col space-y-4'>
-      {appErr ? <h1 className='text-red-800'>{appErr}</h1> : null}
+      {appErr && <Errors errors={appErr} />}
       <Input
         placeholder='First name'
         name='firstName'

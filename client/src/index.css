@@ -6,13 +6,16 @@
   img {
     @apply w-full h-full object-cover;
   }
+  main {
+    @apply container max-w-6xl mx-auto p-4;
+  }
   .btn {
     @apply block py-1 px-3 rounded-md text-white font-semibold;
   }
   .nav-link {
-    @apply text-white text-xl font-semibold capitalize hover:border-b-2;
+    @apply text-black text-xl font-semibold capitalize border-orange-400 hover:border-b-2;
   }
   .mobile-link {
-    @apply block tracking-widest w-full capitalize py-6 text-2xl text-center text-white font-semibold;
+    @apply block tracking-widest w-full capitalize py-4 text-2xl text-center text-white font-semibold;
   }
 }

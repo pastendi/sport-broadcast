@@ -3,7 +3,7 @@ import { BiCustomize } from 'react-icons/bi'
 import { FaPhotoVideo } from 'react-icons/fa'
 import { AiOutlineMessage } from 'react-icons/ai'
 import { FiUsers } from 'react-icons/fi'
-
+export const baseUrl = 'http://localhost:5000'
 export const adminNavLinks = [
   { text: 'Dashboard', path: '/admin/', icon: IoBarChartSharp },
   {

@@ -7,6 +7,8 @@ import {
   setShowLoginModal,
   toggleLoginRegister,
 } from '../redux/slices/appSlice'
+import { loginUserAction } from '../redux/slices/userSlice'
+import Errors from './Form/Errors'
 const data = {
   email: '',
   password: '',
@@ -14,15 +16,20 @@ const data = {
 const LoginModal = () => {
   const dispatch = useDispatch()
   const [values, setValues] = useState(data)
-  const [loading, setLoading] = useState(false)
+  const userData = useSelector((store) => store.users)
+  const { loading, appErr, serverErr, registered, userAuth } = userData
   const login = () => {
-    console.log('login')
+    dispatch(loginUserAction(values))
+  }
+  if (userAuth) {
+    dispatch(setShowLoginModal(false))
   }
   const handleChange = ({ currentTarget: input }) => {
     setValues({ ...values, [input.name]: input.value })
   }
   const body = (
     <div className='flex flex-col space-y-4'>
+      {appErr && <Errors errors={appErr} />}
       <Input
         placeholder='Email'
         name='email'

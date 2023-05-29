@@ -1,8 +1,8 @@
 const Videos = () => {
   return (
-    <div>
+    <main>
       <h1>Videos</h1>
-    </div>
+    </main>
   )
 }
 

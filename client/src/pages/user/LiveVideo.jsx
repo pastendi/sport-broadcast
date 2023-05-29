@@ -1,8 +1,8 @@
 const LiveVideo = () => {
   return (
-    <div>
+    <main>
       <h1>Live video</h1>
-    </div>
+    </main>
   )
 }
 

@@ -1,8 +1,14 @@
+import Intro from '../../components/Intro'
+import PopularVideo from '../../components/PopularVideo'
+import Slider from '../../components/Slider'
+
 const Home = () => {
   return (
-    <div>
-      <h1>Home</h1>
-    </div>
+    <main>
+      <Slider />
+      <Intro />
+      <PopularVideo />
+    </main>
   )
 }
 

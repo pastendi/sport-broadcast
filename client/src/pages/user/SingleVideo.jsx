@@ -1,8 +1,8 @@
 const SingleVideo = () => {
   return (
-    <div>
+    <main>
       <h1>Single video</h1>
-    </div>
+    </main>
   )
 }
 

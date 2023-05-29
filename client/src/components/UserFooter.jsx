@@ -1,8 +1,8 @@
 const UserFooter = () => {
   return (
-    <div>
+    <main>
       <h1>Footer</h1>
-    </div>
+    </main>
   )
 }
 

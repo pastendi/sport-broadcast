@@ -16,11 +16,8 @@ const register = async (req, res) => {
   const user = await User.create(req.body)
   const token = createJWT(user._id)
   res.status(StatusCodes.CREATED).json({
-    user: {
-      id: user._id,
-      username: user.firstName,
-      email: user.email,
-    },
+    username: user.firstName,
+    email: user.email,
     token,
     msg: 'User registered successfully',
   })
@@ -40,11 +37,8 @@ const login = async (req, res) => {
   }
   const token = createJWT(user._id)
   res.status(StatusCodes.OK).json({
-    user: {
-      id: user._id,
-      username: user.firstName,
-      email: user.email,
-    },
+    username: user.firstName,
+    email: user.email,
     token,
     msg: 'Login successful',
   })
