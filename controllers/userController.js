@@ -43,6 +43,27 @@ const login = async (req, res) => {
     msg: 'Login successful',
   })
 }
+const adminLogin = async (req, res) => {
+  const { email, password } = req.body
+  if (!email || !password) {
+    throw new UnauthenticatedError('Please provide email and password')
+  }
+  const user = await User.findOne({ email }).select('+password')
+  if (!user.isAdmin) {
+    throw new UnauthorizedError('Sorry but you are not admin')
+  }
+  const isPasswordCorrect = await user?.comparePassword(password)
+  if (!isPasswordCorrect) {
+    throw new UnauthenticatedError('Invalid Credentials')
+  }
+  const token = createJWT(user._id)
+  res.status(StatusCodes.OK).json({
+    username: user.firstName,
+    email: user.email,
+    token,
+    msg: 'Login successful',
+  })
+}
 const getUsers = async (req, res) => {
   const users = await User.find({ isAdmin: false })
   res.json(users)
@@ -92,4 +113,5 @@ module.exports = {
   changePassword,
   blockUnblock,
   getUser,
+  adminLogin,
 }

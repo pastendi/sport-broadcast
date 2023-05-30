@@ -9,10 +9,12 @@ const {
   changePassword,
   blockUnblock,
   getUser,
+  adminLogin,
 } = require('../controllers/userController')
 
 router.route('/register').post(register)
 router.route('/login').post(login)
+router.route('/admin/login').post(adminLogin)
 router.route('/').get(adminCheck, getUsers)
 router.route('/:id').get(adminCheck, getUser)
 router.route('/block-unblock').patch(blockUnblock)

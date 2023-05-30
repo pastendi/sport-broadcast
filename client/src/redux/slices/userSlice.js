@@ -56,6 +56,31 @@ export const loginUserAction = createAsyncThunk(
     }
   }
 )
+export const loginAdminAction = createAsyncThunk(
+  'admin/login',
+  async (userData, { rejectWithValue, getState, dispatch }) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+    try {
+      const { data } = await axios.post(
+        `${baseUrl}/api/user/admin/login`,
+        userData,
+        config
+      )
+      // save user in local storage
+      localStorage.setItem('user', JSON.stringify(data))
+      return data
+    } catch (error) {
+      if (!error?.response) {
+        throw error
+      }
+      return rejectWithValue(error?.response?.data)
+    }
+  }
+)
 export const logoutAction = createAsyncThunk(
   'user/logout',
   async (payload, { rejectWithValue, getState, dispatch }) => {
@@ -97,7 +122,7 @@ const userSlice = createSlice({
         state.appErr = action?.payload?.msg
         state.serverErr = action?.error?.message
       })
-      // for login
+      // for user login
       .addCase(loginUserAction.pending, (state, action) => {
         state.loading = true
         state.appErr = undefined
@@ -110,6 +135,23 @@ const userSlice = createSlice({
         state.serverErr = undefined
       })
       .addCase(loginUserAction.rejected, (state, action) => {
+        state.loading = false
+        state.appErr = action?.payload?.msg
+        state.serverErr = action?.error?.message
+      })
+      // for admin login
+      .addCase(loginAdminAction.pending, (state, action) => {
+        state.loading = true
+        state.appErr = undefined
+        state.serverErr = undefined
+      })
+      .addCase(loginAdminAction.fulfilled, (state, action) => {
+        state.loading = false
+        state.userAuth = action?.payload
+        state.appErr = undefined
+        state.serverErr = undefined
+      })
+      .addCase(loginAdminAction.rejected, (state, action) => {
         state.loading = false
         state.appErr = action?.payload?.msg
         state.serverErr = action?.error?.message
