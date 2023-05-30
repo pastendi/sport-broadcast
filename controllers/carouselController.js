@@ -39,17 +39,8 @@ const getAllCarousels = async (req, res) => {
   const carousels = await Carousel.find()
   res.status(StatusCodes.OK).json({ carousels })
 }
-const deleteCarousel = async (req, res) => {
-  const carousel = await Carousel.findByIdAndDelete(req.params.id)
-  //deleting old image in cloudinary
-  cloudinaryDelete(carousel.cloudinaryName)
-  res
-    .status(StatusCodes.OK)
-    .json({ carousel, msg: 'Carousel deleted successfully' })
-}
 module.exports = {
   createCarousel,
   updateCarousel,
   getAllCarousels,
-  deleteCarousel,
 }

@@ -54,6 +54,11 @@ const deleteVideo = async (req, res) => {
 const getAllVideos = async (req, res) => {
   const videos = await Video.find({})
     .populate({ path: 'sport', select: ['name'] })
+    .populate({
+      path: 'comments',
+      options: { sort: { createdAt: -1 } },
+      populate: { path: 'userId', select: ['firstName', 'email'] },
+    })
     .sort({ createdAt: -1 })
   res.status(StatusCodes.OK).json({ videos })
 }

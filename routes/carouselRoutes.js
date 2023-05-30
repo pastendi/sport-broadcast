@@ -7,7 +7,6 @@ const {
   createCarousel,
   updateCarousel,
   getAllCarousels,
-  deleteCarousel,
 } = require('../controllers/carouselController')
 
 router
@@ -27,6 +26,5 @@ router
     resizeCarouselImage,
     updateCarousel
   )
-  .delete(adminCheck, deleteCarousel)
 
 module.exports = router
