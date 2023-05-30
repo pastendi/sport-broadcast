@@ -112,41 +112,68 @@ const UserNav = () => {
           )}
         </button>
       </div>
+      {/* mobile menu */}
       <div
         className={`fixed inset-0 z-20 ${
           menuClicked ? 'flex' : 'hidden'
-        } md:hidden flex-col items-center self-end w-full h-full min-h-screen p-6 pt-28 divide-y divide-gray-400 opacity-90 bg-gray-700`}
+        } md:hidden flex-col items-center self-end w-full h-full min-h-screen p-6 pt-28 divide-y divide-gray-300 opacity-90 bg-gray-700`}
       >
         {userNavLinks.map((link, index) => (
           <NavLink
             to={link.path}
             key={index}
-            className='mobile-link'
+            className={({ isActive }) =>
+              isActive ? 'mobile-link bg-orange-500' : 'mobile-link'
+            }
             onClick={() => setMenuClicked(false)}
           >
             {link.text}
           </NavLink>
         ))}
-        <div className='flex w-full justify-center space-x-2 py-4'>
-          <button
-            className='bg-sky-500 btn'
-            onClick={() => {
-              setMenuClicked(false)
-              dispatch(setShowLoginModal(true))
-            }}
-          >
-            SignIn
-          </button>
-          <button
-            className='bg-emerald-500 btn'
-            onClick={() => {
-              setMenuClicked(false)
-              dispatch(setShowRegisterModal(true))
-            }}
-          >
-            SignUp
-          </button>
-        </div>
+        {userAuth ? (
+          <div className='w-full divide-y divide-gray-400 opacity-90 bg-gray-700'>
+            <NavLink
+              to='/favorites'
+              className={({ isActive }) =>
+                isActive ? 'mobile-link bg-orange-500' : 'mobile-link'
+              }
+              onClick={() => setMenuClicked(false)}
+            >
+              Favorites
+            </NavLink>
+            <NavLink
+              to='/'
+              className='mobile-link'
+              onClick={() => {
+                setMenuClicked(false)
+                dispatch(logoutAction())
+              }}
+            >
+              Logout
+            </NavLink>
+          </div>
+        ) : (
+          <div className='flex w-full justify-center space-x-2 pt-6'>
+            <button
+              className='bg-sky-500 btn'
+              onClick={() => {
+                setMenuClicked(false)
+                dispatch(setShowLoginModal(true))
+              }}
+            >
+              SignIn
+            </button>
+            <button
+              className='bg-emerald-500 btn'
+              onClick={() => {
+                setMenuClicked(false)
+                dispatch(setShowRegisterModal(true))
+              }}
+            >
+              SignUp
+            </button>
+          </div>
+        )}
       </div>
     </main>
   )
