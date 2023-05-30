@@ -50,11 +50,10 @@ const UserNav = () => {
           {userAuth ? (
             <div className='relative'>
               <div
-                className='flex justify-center items-center space-x-1 px-3 py-1 rounded-md bg-orange-300 '
+                className='flex justify-center items-center space-x-1 px-3 py-1 rounded-md bg-orange-300 cursor-pointer'
                 onClick={() => setShowUserOption(!showUserOption)}
               >
-                <span>{`Hi ${userData.userAuth.username}`}</span>{' '}
-                <AiFillSetting />
+                <span>{`Hi ${userAuth.username}`}</span> <AiFillSetting />
               </div>
               {showUserOption && (
                 <div className='hidden md:block z-20 absolute top-9 right-0 bg-orange-300 text-black w-32 p-2 space-y-2 rounded-md text-left'>
@@ -98,19 +97,22 @@ const UserNav = () => {
           )}
         </div>
         {/* menu button */}
-        <button
-          type='button'
-          className={`z-30 block md:hidden focus:outline-none  ${
-            menuClicked ? 'text-red-600' : 'text-black'
-          }`}
-          onClick={() => setMenuClicked(!menuClicked)}
-        >
-          {menuClicked ? (
-            <IoMdClose size={40} />
-          ) : (
-            <GiHamburgerMenu size={32} />
-          )}
-        </button>
+        <div className='flex md:hidden items-center space-x-3'>
+          {userAuth && <p>{`Hi ${userAuth.username}`} </p>}
+          <div
+            type='button'
+            className={`z-30 block  focus:outline-none  ${
+              menuClicked ? 'text-red-600' : 'text-black'
+            }`}
+            onClick={() => setMenuClicked(!menuClicked)}
+          >
+            {menuClicked ? (
+              <IoMdClose size={40} />
+            ) : (
+              <GiHamburgerMenu size={32} />
+            )}
+          </div>
+        </div>
       </div>
       {/* mobile menu */}
       <div

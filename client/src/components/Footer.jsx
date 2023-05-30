@@ -45,7 +45,7 @@ const Footer = () => {
         </div>
       </div>
       {/* footer copyright and social links */}
-      <div className='w-full flex flex-col md:flex-row justify-between items-center pt-6 border-t-2 border-gray-800'>
+      <div className='w-full flex flex-col md:flex-row justify-between items-center py-4 border-t-2 border-gray-800'>
         <p className='text-lg sm:text-2xl font-semibold '>
           2023 FunOlympic. All &copy; Rights reserved.
         </p>
