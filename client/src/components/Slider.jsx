@@ -22,7 +22,6 @@ const Slider = () => {
     const timer = setTimeout(() => {
       handleSlide()
     }, 4000)
-
     return () => {
       clearTimeout(timer)
     }
@@ -33,7 +32,7 @@ const Slider = () => {
       <div className='flex h-full  overflow-hidden'>
         {sliderItems.map((item, index) => (
           <div
-            key={item.id}
+            key={index}
             className={`absolute inset-0 flex items-center  transform transition-transform ${
               index === currentSlide ? 'translate-x-0' : '-translate-x-full'
             }  transition-all duration-1000 `}
