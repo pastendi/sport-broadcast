@@ -5,6 +5,7 @@ const appSlice = createSlice({
   initialState: {
     showLoginModal: false,
     showRegisterModal: false,
+    currentPage: 'Dashboard',
   },
   reducers: {
     setShowLoginModal: (state, action) => {
@@ -17,8 +18,15 @@ const appSlice = createSlice({
       state.showLoginModal = !state.showLoginModal
       state.showRegisterModal = !state.showRegisterModal
     },
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload
+    },
   },
 })
-export const { setShowLoginModal, setShowRegisterModal, toggleLoginRegister } =
-  appSlice.actions
+export const {
+  setShowLoginModal,
+  setShowRegisterModal,
+  toggleLoginRegister,
+  setCurrentPage,
+} = appSlice.actions
 export default appSlice.reducer

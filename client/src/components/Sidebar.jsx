@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router'
 import { logo } from '../assets'
 import { adminNavLinks } from '../constants'
 import { NavLink } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 const Sidebar = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   return (
     <div className='w-full h-screen bg-slate-600 space-y-4 relative'>
       <div className='p-6'>
@@ -22,15 +24,16 @@ const Sidebar = () => {
       </div>
       <div className='flex flex-col '>
         {adminNavLinks.map((link, index) => {
+          const { path, text } = link
           return (
             <NavLink
               key={index}
-              to={link.path}
+              to={path}
               className={({ isActive }) =>
                 isActive ? 'admin-link text-black bg-sky-100' : 'admin-link'
               }
             >
-              <link.icon /> <span>{link.text}</span>
+              <link.icon /> <span>{text}</span>
             </NavLink>
           )
         })}
