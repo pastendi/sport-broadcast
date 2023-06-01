@@ -10,9 +10,14 @@ import {
   Favorites,
 } from './pages/user'
 import NotFound from './pages/NotFound'
-import CPanel from './pages/admin/CPanel'
-import AdminLayout from './pages/admin/AdminLayout'
-import Dashboard from './pages/admin/Dashboard'
+import {
+  CPanel,
+  AdminLayout,
+  Dashboard,
+  Customization,
+  ManageVideo,
+  Users,
+} from './pages/admin'
 function App() {
   return (
     <BrowserRouter>
@@ -28,6 +33,9 @@ function App() {
         </Route>
         <Route path='/admin' element={<AdminLayout />}>
           <Route index element={<Dashboard />} />
+          <Route path='customization' element={<Customization />} />
+          <Route path='videos' element={<ManageVideo />} />
+          <Route path='users' element={<Users />} />
         </Route>
         <Route path='/cpanel' element={<CPanel />} />
         <Route path='*' element={<NotFound />} />

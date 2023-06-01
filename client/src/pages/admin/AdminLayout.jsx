@@ -6,10 +6,10 @@ import AdminNav from '../../components/AdminNav'
 const AdminLayout = () => {
   return (
     <div className='w-full h-screen max-h-screen flex  '>
-      <div className='w-96'>
+      <div className='w-80'>
         <Sidebar />
       </div>
-      <div className='flex-grow w-full'>
+      <div className='w-full'>
         <AdminNav />
         <Outlet />
       </div>

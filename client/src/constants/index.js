@@ -1,7 +1,7 @@
 import { IoBarChartSharp } from 'react-icons/io5'
 import { BiCustomize } from 'react-icons/bi'
 import { FaPhotoVideo } from 'react-icons/fa'
-import { AiOutlineMessage } from 'react-icons/ai'
+
 import { FiUsers } from 'react-icons/fi'
 import { instagram, facebook, twitter, linkedin } from '../assets'
 
@@ -15,11 +15,6 @@ export const adminNavLinks = [
   },
   { text: 'Users', path: '/admin/users', icon: FiUsers },
   { text: 'Videos', path: '/admin/videos', icon: FaPhotoVideo },
-  {
-    text: 'Message',
-    path: '/admin/message',
-    icon: AiOutlineMessage,
-  },
 ]
 
 export const userNavLinks = [

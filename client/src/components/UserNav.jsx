@@ -1,4 +1,4 @@
-import logo from '../assets/logo.png'
+import { logo } from '../assets'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { userNavLinks } from '../constants'
