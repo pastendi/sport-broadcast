@@ -1,5 +1,5 @@
 import { IoBarChartSharp } from 'react-icons/io5'
-import { BiCustomize } from 'react-icons/bi'
+import { BsImages } from 'react-icons/bs'
 import { FaPhotoVideo } from 'react-icons/fa'
 
 import { FiUsers } from 'react-icons/fi'
@@ -9,9 +9,9 @@ export const baseUrl = 'http://localhost:5000'
 export const adminNavLinks = [
   { text: 'Dashboard', path: '/admin/', icon: IoBarChartSharp },
   {
-    text: 'Customization',
-    path: '/admin/customization',
-    icon: BiCustomize,
+    text: 'Carousel',
+    path: '/admin/carousel',
+    icon: BsImages,
   },
   { text: 'Users', path: '/admin/users', icon: FiUsers },
   { text: 'Videos', path: '/admin/videos', icon: FaPhotoVideo },

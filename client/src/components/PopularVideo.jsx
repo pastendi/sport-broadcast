@@ -18,7 +18,7 @@ const PopularVideo = () => {
 
   useEffect(() => {
     dispatch(fetchVideosAction())
-  }, [dispatch])
+  }, [])
 
   useEffect(() => {
     if (videoList) {

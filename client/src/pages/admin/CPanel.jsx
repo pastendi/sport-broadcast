@@ -21,7 +21,7 @@ const CPanel = () => {
     setValues({ ...values, [input.name]: input.value })
   }
   if (userAuth) {
-    navigate('/admin')
+    navigate('/admin/')
   }
   return (
     <div className='fixed inset-0 flex justify-center items-center'>

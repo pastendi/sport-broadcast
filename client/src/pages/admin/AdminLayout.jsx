@@ -11,7 +11,9 @@ const AdminLayout = () => {
       </div>
       <div className='w-full'>
         <AdminNav />
-        <Outlet />
+        <div className='p-6'>
+          <Outlet />
+        </div>
       </div>
     </div>
   )

@@ -13,8 +13,9 @@ const register = async (req, res) => {
   const userExist = await User.findOne({ email })
   if (userExist)
     throw new BadRequestError('Account with this email already exist')
-  const user = await User.create(req.body)
+  const user = await User.create({ ...req.body, isActive: true })
   const token = createJWT(user._id)
+  await User.findOneAndUpdate({ email }, { $set: { isActive: true } })
   res.status(StatusCodes.CREATED).json({
     username: user.firstName,
     email: user.email,
@@ -35,6 +36,7 @@ const login = async (req, res) => {
   if (!isPasswordCorrect) {
     throw new UnauthenticatedError('Invalid Credentials')
   }
+  await User.findOneAndUpdate({ email }, { $set: { isActive: true } })
   const token = createJWT(user._id)
   res.status(StatusCodes.OK).json({
     username: user.firstName,
@@ -42,6 +44,10 @@ const login = async (req, res) => {
     token,
     msg: 'Login successful',
   })
+}
+const logout = async (req, res) => {
+  await User.findByIdAndUpdate(req.userId, { $set: { isActive: false } })
+  res.status(StatusCodes.OK).json({ msg: 'Logout successful' })
 }
 const adminLogin = async (req, res) => {
   const { email, password } = req.body
@@ -114,4 +120,5 @@ module.exports = {
   blockUnblock,
   getUser,
   adminLogin,
+  logout,
 }

@@ -29,4 +29,5 @@ export const {
   toggleLoginRegister,
   setCurrentPage,
 } = appSlice.actions
+
 export default appSlice.reducer

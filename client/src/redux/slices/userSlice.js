@@ -84,7 +84,15 @@ export const loginAdminAction = createAsyncThunk(
 export const logoutAction = createAsyncThunk(
   'user/logout',
   async (payload, { rejectWithValue, getState, dispatch }) => {
+    const user = getState()?.users
+    const { userAuth } = user
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userAuth.token}`,
+      },
+    }
     try {
+      await axios.get(`${baseUrl}/api/user/logout`, config)
       // save user in local storage
       localStorage.removeItem('user')
     } catch (error) {
@@ -95,6 +103,29 @@ export const logoutAction = createAsyncThunk(
     }
   }
 )
+// get all users
+export const fetchUsers = createAsyncThunk(
+  'user/fetchUsers',
+  async (userData, { rejectWithValue, getState, dispatch }) => {
+    const user = getState()?.users
+    const { userAuth } = user
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userAuth.token}`,
+      },
+    }
+    try {
+      const { data } = await axios.get(`${baseUrl}/api/user`, config)
+      return data
+    } catch (error) {
+      if (!error?.response) {
+        throw error
+      }
+      return rejectWithValue(error?.response?.data)
+    }
+  }
+)
+
 const storedUser = localStorage.getItem('user')
 // Slice
 
@@ -167,6 +198,21 @@ const userSlice = createSlice({
         state.serverErr = undefined
       })
       .addCase(logoutAction.rejected, (state, action) => {
+        state.loading = false
+        state.appErr = action?.payload?.msg
+        state.serverErr = action?.error?.message
+      })
+      // for logout
+      .addCase(fetchUsers.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(fetchUsers.fulfilled, (state, action) => {
+        state.loading = false
+        state.users = action?.payload
+        state.appErr = undefined
+        state.serverErr = undefined
+      })
+      .addCase(fetchUsers.rejected, (state, action) => {
         state.loading = false
         state.appErr = action?.payload?.msg
         state.serverErr = action?.error?.message

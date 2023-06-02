@@ -14,7 +14,7 @@ import {
   CPanel,
   AdminLayout,
   Dashboard,
-  Customization,
+  Carousel,
   ManageVideo,
   Users,
 } from './pages/admin'
@@ -31,9 +31,9 @@ function App() {
           <Route path='video/:id' element={<SingleVideo />} />
           <Route path='live/:id' element={<LiveVideo />} />
         </Route>
-        <Route path='/admin' element={<AdminLayout />}>
+        <Route path='/admin/' element={<AdminLayout />}>
           <Route index element={<Dashboard />} />
-          <Route path='customization' element={<Customization />} />
+          <Route path='carousel' element={<Carousel />} />
           <Route path='videos' element={<ManageVideo />} />
           <Route path='users' element={<Users />} />
         </Route>
