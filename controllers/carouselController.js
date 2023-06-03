@@ -11,8 +11,7 @@ const createCarousel = async (req, res) => {
     removeFile(storagePath)
   }
   const carousel = await Carousel.create({
-    ...req.body,
-    image: upload?.url,
+    src: upload?.url,
     cloudinaryName: upload?.cloudinaryName,
   })
   res
@@ -27,8 +26,7 @@ const updateCarousel = async (req, res) => {
     removeFile(storagePath)
   }
   const carousel = await Carousel.findByIdAndUpdate(req.params.id, {
-    ...req.body,
-    image: upload?.url,
+    src: upload?.url,
     cloudinaryName: upload?.cloudinaryName,
   })
   //deleting old image in cloudinary
@@ -37,7 +35,7 @@ const updateCarousel = async (req, res) => {
 }
 const getAllCarousels = async (req, res) => {
   const carousels = await Carousel.find()
-  res.status(StatusCodes.OK).json({ carousels })
+  res.status(StatusCodes.OK).json(carousels)
 }
 module.exports = {
   createCarousel,

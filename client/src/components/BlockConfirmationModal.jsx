@@ -1,6 +1,3 @@
-import { useState } from 'react'
-import Input from './Form/Input'
-import Button from './Form/Button'
 import ModalLayout from './ModalLayout'
 import { useDispatch, useSelector } from 'react-redux'
 import { setShowBlockConfirmationModal } from '../redux/slices/appSlice'

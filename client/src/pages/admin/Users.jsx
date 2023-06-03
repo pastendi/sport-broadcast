@@ -48,7 +48,6 @@ const Users = () => {
       )
     )
   }, [searchText])
-  if (!currentUsers) return null
   return (
     <>
       <div className='flex w-full  justify-between mb-8'>
@@ -92,7 +91,7 @@ const Users = () => {
             </TableHead>
             <TableBody>
               {currentUsers
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => (
                   <TableRow
                     key={row._id}
@@ -157,7 +156,7 @@ const Users = () => {
         <TablePagination
           rowsPerPageOptions={[10, 15]}
           component='div'
-          count={currentUsers.length}
+          count={currentUsers?.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

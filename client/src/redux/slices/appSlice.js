@@ -7,6 +7,7 @@ const appSlice = createSlice({
     showLoginModal: false,
     showRegisterModal: false,
     showBlockConfirmationModal: false,
+    showEditCarouselModel: false,
     currentPage: 'Dashboard',
   },
   reducers: {
@@ -19,6 +20,10 @@ const appSlice = createSlice({
     setShowBlockConfirmationModal: (state, action) => {
       state.selected = action.payload.user
       state.showBlockConfirmationModal = action.payload.show
+    },
+    setShowEditCarouselModel: (state, action) => {
+      state.selected = action.payload.image
+      state.showEditCarouselModel = action.payload.show
     },
     toggleLoginRegister: (state) => {
       state.showLoginModal = !state.showLoginModal
@@ -35,6 +40,7 @@ export const {
   toggleLoginRegister,
   setCurrentPage,
   setShowBlockConfirmationModal,
+  setShowEditCarouselModel,
 } = appSlice.actions
 
 export default appSlice.reducer
