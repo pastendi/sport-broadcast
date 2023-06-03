@@ -3,8 +3,10 @@ import { createSlice } from '@reduxjs/toolkit'
 const appSlice = createSlice({
   name: 'app',
   initialState: {
+    selected: {},
     showLoginModal: false,
     showRegisterModal: false,
+    showBlockConfirmationModal: false,
     currentPage: 'Dashboard',
   },
   reducers: {
@@ -13,6 +15,10 @@ const appSlice = createSlice({
     },
     setShowRegisterModal: (state, action) => {
       state.showRegisterModal = action.payload
+    },
+    setShowBlockConfirmationModal: (state, action) => {
+      state.selected = action.payload.user
+      state.showBlockConfirmationModal = action.payload.show
     },
     toggleLoginRegister: (state) => {
       state.showLoginModal = !state.showLoginModal
@@ -28,6 +34,7 @@ export const {
   setShowRegisterModal,
   toggleLoginRegister,
   setCurrentPage,
+  setShowBlockConfirmationModal,
 } = appSlice.actions
 
 export default appSlice.reducer

@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { baseUrl } from '../../constants'
+import { setShowBlockConfirmationModal } from './appSlice'
 
 // register action
 
@@ -125,6 +126,32 @@ export const fetchUsers = createAsyncThunk(
     }
   }
 )
+export const blockUnblock = createAsyncThunk(
+  'user/blockUnblock',
+  async (userId, { rejectWithValue, getState, dispatch }) => {
+    const user = getState()?.users
+    const { userAuth } = user
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userAuth.token}`,
+      },
+    }
+    try {
+      const { data } = await axios.get(
+        `${baseUrl}/api/user/block-unblock/${userId}`,
+        config
+      )
+      dispatch(setShowBlockConfirmationModal({ show: false }))
+      dispatch(fetchUsers())
+      return data
+    } catch (error) {
+      if (!error?.response) {
+        throw error
+      }
+      return rejectWithValue(error?.response?.data)
+    }
+  }
+)
 
 const storedUser = localStorage.getItem('user')
 // Slice
@@ -202,7 +229,7 @@ const userSlice = createSlice({
         state.appErr = action?.payload?.msg
         state.serverErr = action?.error?.message
       })
-      // for logout
+      // for fetching users
       .addCase(fetchUsers.pending, (state, action) => {
         state.loading = true
       })
@@ -213,6 +240,21 @@ const userSlice = createSlice({
         state.serverErr = undefined
       })
       .addCase(fetchUsers.rejected, (state, action) => {
+        state.loading = false
+        state.appErr = action?.payload?.msg
+        state.serverErr = action?.error?.message
+      })
+      // for blocking and unblocking users
+      .addCase(blockUnblock.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(blockUnblock.fulfilled, (state, action) => {
+        state.loading = false
+        state.users = action?.payload
+        state.appErr = undefined
+        state.serverErr = undefined
+      })
+      .addCase(blockUnblock.rejected, (state, action) => {
         state.loading = false
         state.appErr = action?.payload?.msg
         state.serverErr = action?.error?.message

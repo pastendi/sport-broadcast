@@ -19,7 +19,7 @@ router.route('/logout').get(auth, logout)
 router.route('/admin/login').post(adminLogin)
 router.route('/').get(adminCheck, getUsers)
 router.route('/:id').get(adminCheck, getUser)
-router.route('/block-unblock').patch(blockUnblock)
+router.route('/block-unblock/:userId').get(adminCheck, blockUnblock)
 router.route('/change-password').patch(changePassword)
 
 module.exports = router

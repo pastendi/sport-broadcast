@@ -88,23 +88,18 @@ const changePassword = async (req, res) => {
 }
 
 const blockUnblock = async (req, res) => {
-  const { userId } = req.body
-  const currentUser = await User.findById(req.user.id)
-  if (!currentUser.isAdmin)
-    throw new UnauthorizedError(
-      'Sorry but you are not authorized for this action'
-    )
+  const userId = req.params.userId
   const user = await User.findById(userId)
   if (user.isBlocked) {
     await User.findByIdAndUpdate(userId, {
       $set: { isBlocked: false },
     })
-    res.json('The user is unblocked')
+    res.status(StatusCodes.OK).json('The user is unblocked')
   } else {
     await User.findByIdAndUpdate(userId, {
       $set: { isBlocked: true },
     })
-    res.json('The user is blocked')
+    res.status(StatusCodes.OK).json('The user is blocked')
   }
 }
 const getUser = async (req, res) => {

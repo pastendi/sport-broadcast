@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { FaRegDotCircle } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
-import { setCurrentPage } from '../../redux/slices/appSlice'
-import { fetchUsers } from '../../redux/slices/userSlice'
+import {
+  setCurrentPage,
+  setShowBlockConfirmationModal,
+} from '../../redux/slices/appSlice'
+import { fetchUsers, blockUnblock } from '../../redux/slices/userSlice'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -15,6 +18,7 @@ import Paper from '@mui/material/Paper'
 const Users = () => {
   const dispatch = useDispatch()
   const [searchText, setSearchText] = useState('')
+  const [currentUsers, setCurrentUsers] = useState([])
   const userData = useSelector((store) => store?.users)
   const [page, setPage] = useState(0)
   const handleChangePage = (event, newPage) => {
@@ -27,10 +31,24 @@ const Users = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const { users } = userData
   useEffect(() => {
-    dispatch(setCurrentPage('Users'))
     dispatch(fetchUsers())
+    dispatch(setCurrentPage('Users'))
   }, [dispatch])
-  if (!users) return null
+  useEffect(() => {
+    if (users) {
+      setCurrentUsers([...users])
+    }
+  }, [users])
+  useEffect(() => {
+    setCurrentUsers(
+      users?.filter(
+        (user) =>
+          user.firstName.toLowerCase().startsWith(searchText) ||
+          user.email.toLowerCase().startsWith(searchText)
+      )
+    )
+  }, [searchText])
+  if (!currentUsers) return null
   return (
     <>
       <div className='flex w-full  justify-between mb-8'>
@@ -73,7 +91,7 @@ const Users = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {users
+              {currentUsers
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => (
                   <TableRow
@@ -102,9 +120,33 @@ const Users = () => {
                     </TableCell>
                     <TableCell align='right' style={{ width: '10%' }}>
                       {row.isBlocked ? (
-                        <button className='btn bg-green-500'>Unblock</button>
+                        <button
+                          className='btn bg-green-500'
+                          onClick={() =>
+                            dispatch(
+                              setShowBlockConfirmationModal({
+                                user: row,
+                                show: true,
+                              })
+                            )
+                          }
+                        >
+                          Unblock
+                        </button>
                       ) : (
-                        <button className='btn bg-red-500'>Block</button>
+                        <button
+                          className='btn bg-red-500'
+                          onClick={() =>
+                            dispatch(
+                              setShowBlockConfirmationModal({
+                                user: row,
+                                show: true,
+                              })
+                            )
+                          }
+                        >
+                          Block
+                        </button>
                       )}
                     </TableCell>
                   </TableRow>
@@ -115,7 +157,7 @@ const Users = () => {
         <TablePagination
           rowsPerPageOptions={[10, 15]}
           component='div'
-          count={users.length}
+          count={currentUsers.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
