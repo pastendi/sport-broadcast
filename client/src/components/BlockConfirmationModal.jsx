@@ -25,7 +25,14 @@ const BlockConfirmationModal = () => {
         >
           {selected?.isBlocked ? 'Unblock' : 'Block'}
         </button>
-        <button className='btn bg-red-500'>Cancel</button>
+        <button
+          className='btn bg-red-500'
+          onClick={() =>
+            dispatch(setShowBlockConfirmationModal({ show: false }))
+          }
+        >
+          Cancel
+        </button>
       </div>
     </div>
   )
