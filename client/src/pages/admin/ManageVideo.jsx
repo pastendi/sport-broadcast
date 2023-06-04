@@ -11,6 +11,7 @@ import { setCurrentPage } from '../../redux/slices/appSlice'
 import { useEffect } from 'react'
 import { fetchVideosAction } from '../../redux/slices/videoSlice'
 import { useState } from 'react'
+import { formatDistanceToNowStrict } from 'date-fns'
 const ManageVideos = () => {
   const dispatch = useDispatch()
   const [searchText, setSearchText] = useState('')
@@ -39,7 +40,7 @@ const ManageVideos = () => {
     )
   }, [searchText])
   return (
-    <div className='flex flex-col space-y-1'>
+    <div className='flex flex-col space-y-2'>
       <div className='flex justify-between items-center'>
         <div className='w-72'>
           <input
@@ -65,6 +66,12 @@ const ManageVideos = () => {
                   align='right'
                   sx={{ fontWeight: 'bolder', fontSize: '1.2rem' }}
                 >
+                  Age
+                </TableCell>
+                <TableCell
+                  align='right'
+                  sx={{ fontWeight: 'bolder', fontSize: '1.2rem' }}
+                >
                   Views
                 </TableCell>
                 <TableCell
@@ -72,6 +79,18 @@ const ManageVideos = () => {
                   sx={{ fontWeight: 'bolder', fontSize: '1.2rem' }}
                 >
                   Likes
+                </TableCell>
+                <TableCell
+                  align='right'
+                  sx={{ fontWeight: 'bolder', fontSize: '1.2rem' }}
+                >
+                  Dislikes
+                </TableCell>
+                <TableCell
+                  align='right'
+                  sx={{ fontWeight: 'bolder', fontSize: '1.2rem' }}
+                >
+                  Comments
                 </TableCell>
                 <TableCell
                   align='right'
@@ -110,12 +129,39 @@ const ManageVideos = () => {
                         <div className='flex-1'>{row.title}</div>
                       </div>
                     </TableCell>
-                    <TableCell align='right'>{row.views}</TableCell>
-                    <TableCell align='right'>{row.likes}</TableCell>
-                    <TableCell align='right'>
-                      <button className='btn btn-update'>View comments</button>
-                      <button className='btn btn-update'>update</button>
-                      <button className='btn btn-delete'>delete</button>
+                    <TableCell align='right' style={{ width: '10%' }}>
+                      {formatDistanceToNowStrict(new Date(row.createdAt))}
+                    </TableCell>
+                    <TableCell align='right' style={{ width: '10%' }}>
+                      {row.views}
+                    </TableCell>
+                    <TableCell align='right' style={{ width: '10%' }}>
+                      {row.likes?.length || 0}
+                    </TableCell>
+                    <TableCell align='right' style={{ width: '10%' }}>
+                      {row.dislikes?.length || 0}
+                    </TableCell>
+                    <TableCell
+                      align='right'
+                      style={{ width: '10%' }}
+                      className='flex flex-col space-y-1'
+                    >
+                      <p className='text-right'>{row.comments?.length || 0}</p>
+                      <button className='btn  bg-orange-500 block float-right'>
+                        Show
+                      </button>
+                    </TableCell>
+                    <TableCell
+                      align='right'
+                      className='w-full flex flex-col  space-y-2'
+                      style={{ width: '10%' }}
+                    >
+                      <button className='btn bg-sky-500 block float-right'>
+                        update
+                      </button>
+                      <button className='btn bg-red-500 block float-right'>
+                        delete
+                      </button>
                     </TableCell>
                   </TableRow>
                 ))}
