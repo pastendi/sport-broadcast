@@ -26,6 +26,7 @@ const VideoSchema = new mongoose.Schema(
       type: String,
     },
     sport: {
+      required: [true, 'Sport category required'],
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Sport',
     },

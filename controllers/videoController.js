@@ -4,6 +4,7 @@ const { cloudinaryUpload, cloudinaryDelete } = require('../utils/cloudinary')
 const removeFile = require('../utils/removeFile')
 
 const createVideo = async (req, res) => {
+  console.log(req.body)
   const storagePath = `temp/${req.file?.fileName}`
   const upload = await cloudinaryUpload(storagePath)
   if (upload) {

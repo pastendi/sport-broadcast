@@ -17,7 +17,7 @@ const getSport = async (req, res) => {
 }
 const getAllSports = async (req, res) => {
   const sports = await Sport.find({})
-  res.status(StatusCodes.CREATED).json({ sports })
+  res.status(StatusCodes.CREATED).json(sports)
 }
 
 module.exports = { createSport, updateSport, getSport, getAllSports }
