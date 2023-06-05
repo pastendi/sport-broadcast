@@ -10,12 +10,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   setCurrentPage,
   setShowAddVideoModal,
+  setShowEditVideoModal,
 } from '../../redux/slices/appSlice'
 import { useEffect } from 'react'
 import { fetchVideosAction } from '../../redux/slices/videoSlice'
 import { useState } from 'react'
 import { formatDistanceToNowStrict } from 'date-fns'
 import AddVideoModal from '../../components/AddVideoModal'
+import EditVideoModal from '../../components/EditVideoModal'
+import { fetchSportCategory } from '../../redux/slices/sportSlice'
 const ManageVideos = () => {
   const dispatch = useDispatch()
   const [searchText, setSearchText] = useState('')
@@ -28,10 +31,11 @@ const ManageVideos = () => {
   const videoStore = useSelector((store) => store.videos)
   const { videoList } = videoStore
   const appStore = useSelector((store) => store.app)
-  const { showAddVideoModal } = appStore
+  const { showAddVideoModal, showEditVideoModal } = appStore
   useEffect(() => {
     dispatch(setCurrentPage('Videos'))
     dispatch(fetchVideosAction())
+    dispatch(fetchSportCategory())
   }, [dispatch])
   useEffect(() => {
     if (videoList) {
@@ -48,6 +52,7 @@ const ManageVideos = () => {
   return (
     <>
       {showAddVideoModal && <AddVideoModal />}
+      {showEditVideoModal && <EditVideoModal />}
       <div className='flex flex-col space-y-2'>
         <div className='flex justify-between items-center'>
           <div className='w-72'>
@@ -60,8 +65,8 @@ const ManageVideos = () => {
           </div>
           <div>
             <button
-              className='btn bg-emerald-600'
-              onClick={() => dispatch(setShowAddVideoModal({ show: true }))}
+              className='btn bg-emerald-600 hover:bg-emerald-500'
+              onClick={() => dispatch(setShowAddVideoModal(true))}
             >
               Add video
             </button>
@@ -166,7 +171,7 @@ const ManageVideos = () => {
                         <p className='text-right'>
                           {row.comments?.length || 0}
                         </p>
-                        <button className='btn  bg-orange-500 block float-right'>
+                        <button className='btn  bg-orange-600 hover:bg-orange-500 block float-right'>
                           Show
                         </button>
                       </TableCell>
@@ -175,10 +180,17 @@ const ManageVideos = () => {
                         className='w-full flex flex-col  space-y-2'
                         style={{ width: '10%' }}
                       >
-                        <button className='btn bg-sky-500 block float-right'>
+                        <button
+                          className='btn bg-sky-600 hover:bg-sky-500 block float-right'
+                          onClick={() =>
+                            dispatch(
+                              setShowEditVideoModal({ video: row, show: true })
+                            )
+                          }
+                        >
                           update
                         </button>
-                        <button className='btn bg-red-500 block float-right'>
+                        <button className='btn bg-red-600 hover:bg-red-500 block float-right'>
                           delete
                         </button>
                       </TableCell>

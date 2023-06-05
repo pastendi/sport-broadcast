@@ -6,6 +6,7 @@ const appSlice = createSlice({
     selected: {},
     showLoginModal: false,
     showAddVideoModal: false,
+    showEditVideoModal: false,
     showRegisterModal: false,
     showBlockConfirmationModal: false,
     showEditCarouselModel: false,
@@ -27,8 +28,11 @@ const appSlice = createSlice({
       state.showEditCarouselModel = action.payload.show
     },
     setShowAddVideoModal: (state, action) => {
+      state.showAddVideoModal = action.payload
+    },
+    setShowEditVideoModal: (state, action) => {
       state.selected = action.payload.video
-      state.showAddVideoModal = action.payload.show
+      state.showEditVideoModal = action.payload.show
     },
     toggleLoginRegister: (state) => {
       state.showLoginModal = !state.showLoginModal
@@ -47,6 +51,7 @@ export const {
   setShowBlockConfirmationModal,
   setShowEditCarouselModel,
   setShowAddVideoModal,
+  setShowEditVideoModal,
 } = appSlice.actions
 
 export default appSlice.reducer
