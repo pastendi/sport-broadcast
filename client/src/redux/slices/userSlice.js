@@ -85,15 +85,8 @@ export const loginAdminAction = createAsyncThunk(
 export const logoutAction = createAsyncThunk(
   'user/logout',
   async (payload, { rejectWithValue, getState, dispatch }) => {
-    const user = getState()?.users
-    const { userAuth } = user
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userAuth.token}`,
-      },
-    }
     try {
-      await axios.get(`${baseUrl}/api/user/logout`, config)
+      await axios.get(`${baseUrl}/api/user/logout`)
       // save user in local storage
       localStorage.removeItem('user')
     } catch (error) {
@@ -112,7 +105,7 @@ export const fetchUsers = createAsyncThunk(
     const { userAuth } = user
     const config = {
       headers: {
-        Authorization: `Bearer ${userAuth.token}`,
+        Authorization: userAuth ? `Bearer ${userAuth.token}` : null,
       },
     }
     try {
@@ -133,7 +126,7 @@ export const blockUnblock = createAsyncThunk(
     const { userAuth } = user
     const config = {
       headers: {
-        Authorization: `Bearer ${userAuth.token}`,
+        Authorization: userAuth ? `Bearer ${userAuth.token}` : null,
       },
     }
     try {

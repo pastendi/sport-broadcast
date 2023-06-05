@@ -37,7 +37,6 @@ const EditVideoModal = () => {
   }
   const updateVideo = async (e) => {
     e.preventDefault()
-    console.log(values)
     const formData = new FormData()
     formData.append('title', values.title)
     formData.append('description', values.description)

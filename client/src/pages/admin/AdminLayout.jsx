@@ -1,5 +1,5 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 import Sidebar from '../../components/Sidebar'
 import AdminNav from '../../components/AdminNav'
 import BlockConfirmationModal from '../../components/BlockConfirmationModal'
@@ -9,6 +9,10 @@ import EditCarouselModel from '../../components/EditCarouselModel'
 const AdminLayout = () => {
   const store = useSelector((store) => store.app)
   const { showBlockConfirmationModal, showEditCarouselModel } = store
+  const userStore = useSelector((store) => store.users)
+  const { userAuth } = userStore
+  if (!userAuth || userAuth.email !== 'admin@gmail.com')
+    return <Navigate to='/cpanel' />
   return (
     <div className='w-full h-screen max-h-screen flex'>
       {showBlockConfirmationModal && <BlockConfirmationModal />}

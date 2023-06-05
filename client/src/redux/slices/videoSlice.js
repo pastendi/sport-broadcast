@@ -29,7 +29,7 @@ export const createNewVideo = createAsyncThunk(
     const config = {
       headers: {
         'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${userAuth.token}`,
+        Authorization: userAuth ? `Bearer ${userAuth.token}` : null,
       },
     }
     try {
@@ -59,7 +59,7 @@ export const updateVideoAction = createAsyncThunk(
     const config = {
       headers: {
         'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${userAuth.token}`,
+        Authorization: userAuth ? `Bearer ${userAuth.token}` : null,
       },
     }
     try {
@@ -87,7 +87,7 @@ export const deleteVideoAction = createAsyncThunk(
     const config = {
       headers: {
         'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${userAuth.token}`,
+        Authorization: userAuth ? `Bearer ${userAuth.token}` : null,
       },
     }
     try {

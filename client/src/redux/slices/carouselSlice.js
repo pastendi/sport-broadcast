@@ -28,7 +28,7 @@ export const changeCarausel = createAsyncThunk(
     const config = {
       headers: {
         'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${userAuth.token}`,
+        Authorization: userAuth ? `Bearer ${userAuth.token}` : null,
       },
     }
     try {

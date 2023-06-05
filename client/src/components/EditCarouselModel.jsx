@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setShowEditCarouselModel } from '../redux/slices/appSlice'
 import { useState } from 'react'
 import { changeCarausel } from '../redux/slices/carouselSlice'
+import { ImWarning } from 'react-icons/im'
 const EditCarouselModel = () => {
   const [image, setImage] = useState(null)
   const dispatch = useDispatch()
@@ -16,7 +17,12 @@ const EditCarouselModel = () => {
   }
   const body = (
     <div className='flex flex-col space-y-4'>
-      <p>Caution, that the old image will be removed completely !!!</p>
+      <p>
+        <span className='text-orange-600 inline-block text-6xl'>
+          <ImWarning />
+        </span>{' '}
+        Caution, that the old image will be removed completely !!!
+      </p>
       <div>
         <input
           type='file'

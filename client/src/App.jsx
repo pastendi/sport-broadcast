@@ -22,6 +22,12 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path='/admin' element={<AdminLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path='carousel' element={<Carousel />} />
+          <Route path='videos' element={<ManageVideo />} />
+          <Route path='users' element={<Users />} />
+        </Route>
         <Route path='/' element={<UserLayout />}>
           <Route index element={<Home />} />
           <Route path='about' element={<About />} />
@@ -31,12 +37,7 @@ function App() {
           <Route path='video/:id' element={<SingleVideo />} />
           <Route path='live/:id' element={<LiveVideo />} />
         </Route>
-        <Route path='/admin/' element={<AdminLayout />}>
-          <Route index element={<Dashboard />} />
-          <Route path='carousel' element={<Carousel />} />
-          <Route path='videos' element={<ManageVideo />} />
-          <Route path='users' element={<Users />} />
-        </Route>
+
         <Route path='/cpanel' element={<CPanel />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
