@@ -1,7 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { baseUrl } from '../../constants'
-import { setShowAddVideoModal, setShowEditVideoModal } from './appSlice'
+import {
+  setShowAddVideoModal,
+  setShowEditVideoModal,
+  setShowDeleteVideoModal,
+} from './appSlice'
 
 export const fetchVideosAction = createAsyncThunk(
   'video/list',
@@ -75,6 +79,30 @@ export const updateVideoAction = createAsyncThunk(
     }
   }
 )
+export const deleteVideoAction = createAsyncThunk(
+  'videos/delete',
+  async (id, { rejectWithValue, getState, dispatch }) => {
+    const userStore = getState()?.users
+    const { userAuth } = userStore
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${userAuth.token}`,
+      },
+    }
+    try {
+      const { data } = await axios.delete(`${baseUrl}/api/video/${id}`, config)
+      dispatch(setShowDeleteVideoModal({ show: false }))
+      dispatch(fetchVideosAction())
+      return data
+    } catch (error) {
+      if (!error?.response) {
+        throw error
+      }
+      return rejectWithValue(error?.response?.data)
+    }
+  }
+)
 
 const videoSlice = createSlice({
   name: 'videos',
@@ -117,6 +145,19 @@ const videoSlice = createSlice({
         state.serverErr = undefined
       })
       .addCase(updateVideoAction.rejected, (state, action) => {
+        state.loading = false
+        state.appErr = action?.payload?.msg
+        state.serverErr = action?.error?.message
+      })
+      .addCase(deleteVideoAction.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(deleteVideoAction.fulfilled, (state, action) => {
+        state.loading = false
+        state.appErr = undefined
+        state.serverErr = undefined
+      })
+      .addCase(deleteVideoAction.rejected, (state, action) => {
         state.loading = false
         state.appErr = action?.payload?.msg
         state.serverErr = action?.error?.message

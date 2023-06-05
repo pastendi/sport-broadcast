@@ -11,6 +11,7 @@ import {
   setCurrentPage,
   setShowAddVideoModal,
   setShowEditVideoModal,
+  setShowDeleteVideoModal,
 } from '../../redux/slices/appSlice'
 import { useEffect } from 'react'
 import { fetchVideosAction } from '../../redux/slices/videoSlice'
@@ -19,6 +20,7 @@ import { formatDistanceToNowStrict } from 'date-fns'
 import AddVideoModal from '../../components/AddVideoModal'
 import EditVideoModal from '../../components/EditVideoModal'
 import { fetchSportCategory } from '../../redux/slices/sportSlice'
+import DeleteVideoModal from '../../components/DeleteVideoModal'
 const ManageVideos = () => {
   const dispatch = useDispatch()
   const [searchText, setSearchText] = useState('')
@@ -31,7 +33,8 @@ const ManageVideos = () => {
   const videoStore = useSelector((store) => store.videos)
   const { videoList } = videoStore
   const appStore = useSelector((store) => store.app)
-  const { showAddVideoModal, showEditVideoModal } = appStore
+  const { showAddVideoModal, showEditVideoModal, showDeleteVideoModal } =
+    appStore
   useEffect(() => {
     dispatch(setCurrentPage('Videos'))
     dispatch(fetchVideosAction())
@@ -53,6 +56,7 @@ const ManageVideos = () => {
     <>
       {showAddVideoModal && <AddVideoModal />}
       {showEditVideoModal && <EditVideoModal />}
+      {showDeleteVideoModal && <DeleteVideoModal />}
       <div className='flex flex-col space-y-2'>
         <div className='flex justify-between items-center'>
           <div className='w-72'>
@@ -190,7 +194,17 @@ const ManageVideos = () => {
                         >
                           update
                         </button>
-                        <button className='btn bg-red-600 hover:bg-red-500 block float-right'>
+                        <button
+                          className='btn bg-red-600 hover:bg-red-500 block float-right'
+                          onClick={() =>
+                            dispatch(
+                              setShowDeleteVideoModal({
+                                video: row,
+                                show: true,
+                              })
+                            )
+                          }
+                        >
                           delete
                         </button>
                       </TableCell>

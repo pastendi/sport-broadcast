@@ -8,6 +8,7 @@ const appSlice = createSlice({
     showAddVideoModal: false,
     showEditVideoModal: false,
     showRegisterModal: false,
+    showDeleteVideoModal: false,
     showBlockConfirmationModal: false,
     showEditCarouselModel: false,
     currentPage: 'Dashboard',
@@ -34,6 +35,10 @@ const appSlice = createSlice({
       state.selected = action.payload.video
       state.showEditVideoModal = action.payload.show
     },
+    setShowDeleteVideoModal: (state, action) => {
+      state.selected = action.payload.video
+      state.showDeleteVideoModal = action.payload.show
+    },
     toggleLoginRegister: (state) => {
       state.showLoginModal = !state.showLoginModal
       state.showRegisterModal = !state.showRegisterModal
@@ -52,6 +57,7 @@ export const {
   setShowEditCarouselModel,
   setShowAddVideoModal,
   setShowEditVideoModal,
+  setShowDeleteVideoModal,
 } = appSlice.actions
 
 export default appSlice.reducer

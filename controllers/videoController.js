@@ -50,7 +50,7 @@ const deleteVideo = async (req, res) => {
   const video = await Video.findByIdAndDelete(req.params.id)
   //deleting old image in cloudinary
   cloudinaryDelete(video.cloudinaryName)
-  res.status(StatusCodes.OK).json({ video, msg: 'Video updated successfully' })
+  res.status(StatusCodes.OK).json({ video, msg: 'Video deleted successfully' })
 }
 const getAllVideos = async (req, res) => {
   const videos = await Video.find({})
