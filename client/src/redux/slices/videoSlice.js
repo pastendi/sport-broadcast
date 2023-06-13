@@ -123,6 +123,50 @@ const videoSlice = createSlice({
       )
       state.filteredList = filtered
     },
+    sortByLengthOf: (state, action) => {
+      let result = [...state.filteredList]
+      if (state.previousFilterField === action.payload && state.descOrder) {
+        state.descOrder = false
+        result = result.sort(
+          (a, b) => a[action.payload].length - b[action.payload].length
+        )
+      } else {
+        state.descOrder = true
+        state.previousFilterField = action.payload
+        result = result.sort(
+          (a, b) => b[action.payload].length - a[action.payload].length
+        )
+      }
+      state.filteredList = result
+    },
+    sortByView: (state, action) => {
+      let result = [...state.filteredList]
+      if (state.descOrder) {
+        state.descOrder = false
+        result = result.sort((a, b) => a.views - b.views)
+      } else {
+        state.descOrder = true
+        result = result.sort((a, b) => b.views - a.views)
+      }
+      state.filteredList = result
+    },
+    sortByDate: (state, action) => {
+      let result = [...state.filteredList]
+      if (state.descOrder) {
+        state.descOrder = false
+        result = result.sort(
+          (a, b) =>
+            Number(new Date(b.createdAt)) - Number(new Date(a.createdAt))
+        )
+      } else {
+        state.descOrder = true
+        result = result.sort(
+          (a, b) =>
+            Number(new Date(a.createdAt)) - Number(new Date(b.createdAt))
+        )
+      }
+      state.filteredList = result
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -182,5 +226,6 @@ const videoSlice = createSlice({
       })
   },
 })
-export const { filterVideos } = videoSlice.actions
+export const { filterVideos, sortByLengthOf, sortByView, sortByDate } =
+  videoSlice.actions
 export default videoSlice.reducer

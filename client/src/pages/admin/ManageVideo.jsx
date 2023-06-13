@@ -14,7 +14,13 @@ import {
   setShowDeleteVideoModal,
 } from '../../redux/slices/appSlice'
 import { useEffect } from 'react'
-import { fetchVideosAction, filterVideos } from '../../redux/slices/videoSlice'
+import {
+  fetchVideosAction,
+  filterVideos,
+  sortByLengthOf,
+  sortByView,
+  sortByDate,
+} from '../../redux/slices/videoSlice'
 import { useState } from 'react'
 import { formatDistanceToNowStrict } from 'date-fns'
 import AddVideoModal from '../../components/AddVideoModal'
@@ -121,30 +127,35 @@ const ManageVideos = () => {
                   <TableCell
                     align='right'
                     sx={{ fontWeight: 'bolder', fontSize: '1.2rem' }}
+                    onClick={() => dispatch(sortByDate())}
                   >
                     Age
                   </TableCell>
                   <TableCell
                     align='right'
                     sx={{ fontWeight: 'bolder', fontSize: '1.2rem' }}
+                    onClick={() => dispatch(sortByView())}
                   >
                     Views
                   </TableCell>
                   <TableCell
                     align='right'
                     sx={{ fontWeight: 'bolder', fontSize: '1.2rem' }}
+                    onClick={() => dispatch(sortByLengthOf('likes'))}
                   >
                     Likes
                   </TableCell>
                   <TableCell
                     align='right'
                     sx={{ fontWeight: 'bolder', fontSize: '1.2rem' }}
+                    onClick={() => dispatch(sortByLengthOf('dislikes'))}
                   >
                     Dislikes
                   </TableCell>
                   <TableCell
                     align='right'
                     sx={{ fontWeight: 'bolder', fontSize: '1.2rem' }}
+                    onClick={() => dispatch(sortByLengthOf('comments'))}
                   >
                     Comments
                   </TableCell>

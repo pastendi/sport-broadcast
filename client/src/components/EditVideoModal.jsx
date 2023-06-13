@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import ModalLayout from './ModalLayout'
 import { useDispatch, useSelector } from 'react-redux'
 import { setShowEditVideoModal } from '../redux/slices/appSlice'
@@ -21,7 +21,7 @@ const EditVideoModal = () => {
     image: null,
   })
   const videoData = useSelector((store) => store.videos)
-  const { loading, appErr, serverErr, registered } = videoData
+  const { loading, appErr } = videoData
   const sportData = useSelector((store) => store.sports)
   const { sports } = sportData
   const MenuProps = {
