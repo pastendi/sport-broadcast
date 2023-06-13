@@ -18,7 +18,6 @@ const initial = {
 const AddVideoModal = () => {
   const dispatch = useDispatch()
   const [values, setValues] = useState(initial)
-
   const videoData = useSelector((store) => store.videos)
   const { loading, appErr, serverErr, registered } = videoData
   const sportData = useSelector((store) => store.sports)

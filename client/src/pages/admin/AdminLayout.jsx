@@ -14,19 +14,21 @@ const AdminLayout = () => {
   if (!userAuth || userAuth.email !== 'admin@gmail.com')
     return <Navigate to='/cpanel' />
   return (
-    <div className='w-full h-screen max-h-screen flex'>
+    <>
       {showBlockConfirmationModal && <BlockConfirmationModal />}
       {showEditCarouselModel && <EditCarouselModel />}
-      <div className='w-80'>
-        <Sidebar />
-      </div>
-      <div className='w-full'>
-        <AdminNav />
-        <div className='p-6'>
-          <Outlet />
+      <div className='w-full h-screen max-h-screen flex'>
+        <div className='w-80'>
+          <Sidebar />
+        </div>
+        <div className='w-full'>
+          <AdminNav />
+          <div className='p-6'>
+            <Outlet />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

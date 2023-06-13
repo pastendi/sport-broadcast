@@ -154,9 +154,9 @@ const Users = () => {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[10, 15]}
+          rowsPerPageOptions={[10]}
           component='div'
-          count={currentUsers?.length}
+          count={currentUsers?.length || 0}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

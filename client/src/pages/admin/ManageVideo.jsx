@@ -21,12 +21,13 @@ import AddVideoModal from '../../components/AddVideoModal'
 import EditVideoModal from '../../components/EditVideoModal'
 import { fetchSportCategory } from '../../redux/slices/sportSlice'
 import DeleteVideoModal from '../../components/DeleteVideoModal'
+
 const ManageVideos = () => {
   const dispatch = useDispatch()
   const [searchText, setSearchText] = useState('')
   const [filtered, setFiltered] = useState([])
   const [page, setPage] = useState(0)
-  const [videosPerPage, setVideosPerPage] = useState(5)
+  const [videosPerPage, setVideosPerPage] = useState(10)
   const handleChangePage = (event, newPage) => {
     setPage(newPage)
   }
@@ -36,10 +37,14 @@ const ManageVideos = () => {
   const { showAddVideoModal, showEditVideoModal, showDeleteVideoModal } =
     appStore
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [page])
+  useEffect(() => {
     dispatch(setCurrentPage('Videos'))
     dispatch(fetchVideosAction())
     dispatch(fetchSportCategory())
   }, [dispatch])
+
   useEffect(() => {
     if (videoList) {
       setFiltered([...videoList])
