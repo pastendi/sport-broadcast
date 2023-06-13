@@ -153,6 +153,17 @@ const userSlice = createSlice({
   name: 'users',
   initialState: {
     userAuth: storedUser ? JSON.parse(storedUser) : null,
+    users: [],
+    filteredUsers: [],
+  },
+  reducers: {
+    filterUsers: (state, action) => {
+      state.filteredUsers = [...state.users]?.filter(
+        (user) =>
+          user.firstName.toLowerCase().startsWith(action.payload) ||
+          user.email.toLowerCase().startsWith(action.payload)
+      )
+    },
   },
   extraReducers: (builder) => {
     // for register
@@ -229,6 +240,7 @@ const userSlice = createSlice({
       .addCase(fetchUsers.fulfilled, (state, action) => {
         state.loading = false
         state.users = action?.payload
+        state.filteredUsers = [...state.users]
         state.appErr = undefined
         state.serverErr = undefined
       })
@@ -254,5 +266,5 @@ const userSlice = createSlice({
       })
   },
 })
-
+export const { filterUsers } = userSlice.actions
 export default userSlice.reducer

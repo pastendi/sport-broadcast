@@ -14,28 +14,43 @@ import {
   setShowDeleteVideoModal,
 } from '../../redux/slices/appSlice'
 import { useEffect } from 'react'
-import { fetchVideosAction } from '../../redux/slices/videoSlice'
+import { fetchVideosAction, filterVideos } from '../../redux/slices/videoSlice'
 import { useState } from 'react'
 import { formatDistanceToNowStrict } from 'date-fns'
 import AddVideoModal from '../../components/AddVideoModal'
 import EditVideoModal from '../../components/EditVideoModal'
 import { fetchSportCategory } from '../../redux/slices/sportSlice'
 import DeleteVideoModal from '../../components/DeleteVideoModal'
+import { MenuItem, Select } from '@mui/material'
 
 const ManageVideos = () => {
   const dispatch = useDispatch()
   const [searchText, setSearchText] = useState('')
-  const [filtered, setFiltered] = useState([])
+  const [sport, setSport] = useState('all')
   const [page, setPage] = useState(0)
   const [videosPerPage, setVideosPerPage] = useState(10)
   const handleChangePage = (event, newPage) => {
     setPage(newPage)
   }
   const videoStore = useSelector((store) => store.videos)
-  const { videoList } = videoStore
+  const { filteredList } = videoStore
   const appStore = useSelector((store) => store.app)
   const { showAddVideoModal, showEditVideoModal, showDeleteVideoModal } =
     appStore
+  const sportData = useSelector((store) => store.sports)
+  const { sports } = sportData
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        width: 100,
+        maxHeight: 200,
+      },
+    },
+  }
+  const changeSport = (e) => {
+    setSearchText('')
+    setSport(e.target.value)
+  }
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [page])
@@ -44,19 +59,10 @@ const ManageVideos = () => {
     dispatch(fetchVideosAction())
     dispatch(fetchSportCategory())
   }, [dispatch])
-
   useEffect(() => {
-    if (videoList) {
-      setFiltered([...videoList])
-    }
-  }, [videoList])
-  useEffect(() => {
-    setFiltered(
-      videoList?.filter((video) =>
-        video.title.toLowerCase().startsWith(searchText)
-      )
-    )
-  }, [searchText])
+    dispatch(filterVideos({ text: searchText, sport }))
+  }, [searchText, sport, dispatch])
+  if (!filteredList) return <h1>Nothing to show</h1>
   return (
     <>
       {showAddVideoModal && <AddVideoModal />}
@@ -64,13 +70,32 @@ const ManageVideos = () => {
       {showDeleteVideoModal && <DeleteVideoModal />}
       <div className='flex flex-col space-y-2'>
         <div className='flex justify-between items-center'>
-          <div className='w-72'>
-            <input
-              name='searchText'
-              onChange={(e) => setSearchText(e.target.value)}
-              placeholder='search'
-              className='py-1 px-4  w-full rounded-md outline-none focus:border-sky-500  focus:border-[1px]'
-            />
+          <div className='flex space-x-2'>
+            <div className='w-72'>
+              <input
+                name='searchText'
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                placeholder='search'
+                className='py-2 px-4  w-full text-lg rounded-md outline-none focus:border-sky-500  focus:border-[1px]'
+              />
+            </div>
+            <Select
+              sx={{ width: 150, maxHeight: 100 }}
+              size='small'
+              name='sport'
+              value={sport}
+              required
+              onChange={changeSport}
+              MenuProps={MenuProps}
+            >
+              <MenuItem value={'all'}>All</MenuItem>
+              {sports?.map((sport, index) => (
+                <MenuItem key={index} value={sport._id}>
+                  {sport.name}
+                </MenuItem>
+              ))}
+            </Select>
           </div>
           <div>
             <button
@@ -132,7 +157,7 @@ const ManageVideos = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {filtered
+                {filteredList
                   ?.slice(
                     page * videosPerPage,
                     page * videosPerPage + videosPerPage
@@ -221,7 +246,7 @@ const ManageVideos = () => {
           <TablePagination
             component='div'
             rowsPerPageOptions={[5]}
-            count={filtered?.length || 0}
+            count={filteredList?.length || 0}
             rowsPerPage={videosPerPage}
             page={page}
             onPageChange={handleChangePage}

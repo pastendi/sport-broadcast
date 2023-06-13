@@ -106,7 +106,24 @@ export const deleteVideoAction = createAsyncThunk(
 
 const videoSlice = createSlice({
   name: 'videos',
-  initialState: {},
+  initialState: {
+    videoList: [],
+    filteredList: [],
+  },
+  reducers: {
+    filterVideos: (state, action) => {
+      let filtered = [...state.videoList]
+      if (action.payload.sport !== 'all') {
+        filtered = filtered?.filter(
+          (video) => video.sport._id === action.payload.sport
+        )
+      }
+      filtered = filtered?.filter((video) =>
+        video.title.toLowerCase().startsWith(action.payload.text)
+      )
+      state.filteredList = filtered
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchVideosAction.pending, (state, action) => {
@@ -115,6 +132,7 @@ const videoSlice = createSlice({
       .addCase(fetchVideosAction.fulfilled, (state, action) => {
         state.loading = false
         state.videoList = action?.payload.videos
+        state.filteredList = [...state.videoList]
         state.appErr = undefined
         state.serverErr = undefined
       })
@@ -164,5 +182,5 @@ const videoSlice = createSlice({
       })
   },
 })
-
+export const { filterVideos } = videoSlice.actions
 export default videoSlice.reducer

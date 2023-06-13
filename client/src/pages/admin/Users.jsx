@@ -5,7 +5,11 @@ import {
   setCurrentPage,
   setShowBlockConfirmationModal,
 } from '../../redux/slices/appSlice'
-import { fetchUsers, blockUnblock } from '../../redux/slices/userSlice'
+import {
+  fetchUsers,
+  blockUnblock,
+  filterUsers,
+} from '../../redux/slices/userSlice'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -18,9 +22,8 @@ import Paper from '@mui/material/Paper'
 const Users = () => {
   const dispatch = useDispatch()
   const [searchText, setSearchText] = useState('')
-  const [currentUsers, setCurrentUsers] = useState([])
-  const userData = useSelector((store) => store?.users)
   const [page, setPage] = useState(0)
+  const [rowsPerPage, setRowsPerPage] = useState(10)
   const handleChangePage = (event, newPage) => {
     setPage(newPage)
   }
@@ -28,26 +31,17 @@ const Users = () => {
     setRowsPerPage(event.target.value)
     setPage(0)
   }
-  const [rowsPerPage, setRowsPerPage] = useState(10)
-  const { users } = userData
+
+  const userData = useSelector((store) => store?.users)
+  const { filteredUsers } = userData
   useEffect(() => {
     dispatch(fetchUsers())
     dispatch(setCurrentPage('Users'))
   }, [dispatch])
+  //
   useEffect(() => {
-    if (users) {
-      setCurrentUsers([...users])
-    }
-  }, [users])
-  useEffect(() => {
-    setCurrentUsers(
-      users?.filter(
-        (user) =>
-          user.firstName.toLowerCase().startsWith(searchText) ||
-          user.email.toLowerCase().startsWith(searchText)
-      )
-    )
-  }, [searchText])
+    dispatch(filterUsers(searchText))
+  }, [searchText, dispatch])
   return (
     <>
       <div className='flex w-full  justify-between mb-8'>
@@ -55,6 +49,7 @@ const Users = () => {
         <div className='w-96 flex'>
           <input
             name='searchText'
+            value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
             placeholder='search by name or email'
             className='py-2 px-4 w-full rounded-md outline-none focus:border-sky-500  focus:border-2'
@@ -90,7 +85,7 @@ const Users = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {currentUsers
+              {filteredUsers
                 ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => (
                   <TableRow
@@ -156,7 +151,7 @@ const Users = () => {
         <TablePagination
           rowsPerPageOptions={[10]}
           component='div'
-          count={currentUsers?.length || 0}
+          count={filteredUsers?.length || 0}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
