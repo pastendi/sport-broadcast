@@ -26,6 +26,15 @@ const UserSchema = new mongoose.Schema(
       required: [true, 'Password required'],
       select: false,
     },
+    favorites: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Video',
+        },
+      ],
+      default: [],
+    },
     isBlocked: {
       type: Boolean,
       default: false,

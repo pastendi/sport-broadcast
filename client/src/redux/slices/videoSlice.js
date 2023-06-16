@@ -49,6 +49,27 @@ export const createNewVideo = createAsyncThunk(
     }
   }
 )
+export const findVideoAction = createAsyncThunk(
+  'videos/findSingleVideo',
+  async (id, { rejectWithValue, getState, dispatch }) => {
+    const userStore = getState()?.users
+    const { userAuth } = userStore
+    const config = {
+      headers: {
+        Authorization: userAuth ? `Bearer ${userAuth.token}` : null,
+      },
+    }
+    try {
+      const { data } = await axios.get(`${baseUrl}/api/video/${id}`, config)
+      return data
+    } catch (error) {
+      if (!error?.response) {
+        throw error
+      }
+      return rejectWithValue(error?.response?.data)
+    }
+  }
+)
 export const updateVideoAction = createAsyncThunk(
   'videos/update',
   async (formData, { rejectWithValue, getState, dispatch }) => {
@@ -109,6 +130,7 @@ const videoSlice = createSlice({
   initialState: {
     videoList: [],
     filteredList: [],
+    currentVideo: {},
   },
   reducers: {
     filterVideos: (state, action) => {
@@ -207,6 +229,20 @@ const videoSlice = createSlice({
         state.serverErr = undefined
       })
       .addCase(updateVideoAction.rejected, (state, action) => {
+        state.loading = false
+        state.appErr = action?.payload?.msg
+        state.serverErr = action?.error?.message
+      })
+      .addCase(findVideoAction.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(findVideoAction.fulfilled, (state, action) => {
+        state.loading = false
+        state.currentVideo = action?.payload?.video
+        state.appErr = undefined
+        state.serverErr = undefined
+      })
+      .addCase(findVideoAction.rejected, (state, action) => {
         state.loading = false
         state.appErr = action?.payload?.msg
         state.serverErr = action?.error?.message

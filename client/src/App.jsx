@@ -6,7 +6,6 @@ import {
   Videos,
   Contact,
   SingleVideo,
-  LiveVideo,
   Favorites,
 } from './pages/user'
 import NotFound from './pages/NotFound'
@@ -35,7 +34,6 @@ function App() {
           <Route path='contact' element={<Contact />} />
           <Route path='favorites' element={<Favorites />} />
           <Route path='video/:id' element={<SingleVideo />} />
-          <Route path='live/:id' element={<LiveVideo />} />
         </Route>
 
         <Route path='/cpanel' element={<CPanel />} />

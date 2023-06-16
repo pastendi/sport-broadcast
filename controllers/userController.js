@@ -17,8 +17,10 @@ const register = async (req, res) => {
   const token = createJWT(user._id)
   await User.findOneAndUpdate({ email }, { $set: { isActive: true } })
   res.status(StatusCodes.CREATED).json({
+    id: user._id,
     username: user.firstName,
     email: user.email,
+    favorites: user.favorites,
     token,
     msg: 'User registered successfully',
   })
@@ -39,7 +41,9 @@ const login = async (req, res) => {
   await User.findOneAndUpdate({ email }, { $set: { isActive: true } })
   const token = createJWT(user._id)
   res.status(StatusCodes.OK).json({
+    id: user._id,
     username: user.firstName,
+    favorites: user.favorites,
     email: user.email,
     token,
     msg: 'Login successful',
