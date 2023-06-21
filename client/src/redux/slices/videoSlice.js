@@ -131,6 +131,7 @@ const videoSlice = createSlice({
     videoList: [],
     filteredList: [],
     currentVideo: {},
+    recommendation: [],
   },
   reducers: {
     filterVideos: (state, action) => {
@@ -239,6 +240,7 @@ const videoSlice = createSlice({
       .addCase(findVideoAction.fulfilled, (state, action) => {
         state.loading = false
         state.currentVideo = action?.payload?.video
+        state.recommendation = action?.payload?.recommendation
         state.appErr = undefined
         state.serverErr = undefined
       })

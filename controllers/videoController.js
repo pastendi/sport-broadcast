@@ -65,16 +65,10 @@ const getAllVideos = async (req, res) => {
 }
 const getVideo = async (req, res) => {
   const video = await Video.findById(req.params.id)
-    .populate({
-      path: 'comments',
-      options: { sort: { createdAt: -1 } },
-      populate: { path: 'userId', select: ['firstName', 'email'] },
-    })
-    .populate({
-      path: 'chats',
-      populate: { path: 'userId', select: ['firstName', 'email'] },
-    })
-  res.status(StatusCodes.OK).json({ video })
+  let recommendation = await Video.find({
+    $and: [{ sport: video.sport }, { _id: { $ne: req.params.id } }],
+  })
+  res.status(StatusCodes.OK).json({ video, recommendation })
 }
 
 module.exports = {
