@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { formatDistanceToNowStrict } from 'date-fns'
 const Comment = ({ comment, user, createdAt }) => {
   const age = useMemo(() => {

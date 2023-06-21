@@ -58,7 +58,7 @@ const getAllVideos = async (req, res) => {
     .populate({
       path: 'comments',
       options: { sort: { createdAt: -1 } },
-      populate: { path: 'userId', select: ['firstName', 'email'] },
+      populate: { path: 'user', select: ['firstName', 'email'] },
     })
     .sort({ createdAt: -1 })
   res.status(StatusCodes.OK).json({ videos })
