@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { adminCheck } = require('../middlewares/authHandler')
+const { auth, adminCheck } = require('../middlewares/authHandler')
 
 const {
   createComment,
@@ -8,7 +8,7 @@ const {
   getAllComments,
 } = require('../controllers/commentController')
 
-router.route('/').post(createComment)
+router.route('/').post(auth, createComment)
 router.route('/all/:videoId').get(getAllComments)
 router.route('/:id').delete(adminCheck, deleteComment)
 

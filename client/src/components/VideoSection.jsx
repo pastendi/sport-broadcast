@@ -9,6 +9,7 @@ import {
 import { formatDistanceToNowStrict } from 'date-fns'
 import { useMemo } from 'react'
 import { MdBookmarkAdd, MdBookmarkAdded } from 'react-icons/md'
+import CommentSection from './CommentSection'
 
 const VideoSection = ({ video }) => {
   const { userAuth } = useSelector((store) => store.users)
@@ -83,6 +84,7 @@ const VideoSection = ({ video }) => {
         </div>
         <p>{video.description}</p>
       </div>
+      <CommentSection id={video._id} />
     </div>
   )
 }
