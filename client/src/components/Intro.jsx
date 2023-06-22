@@ -14,13 +14,14 @@ const Intro = () => {
           Olympic games
         </h1>
         <p className='text-justify  lg:text-lg'>
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita
-          cumque quaerat sapiente dignissimos autem inventore, laboriosam eum
-          labore temporibus perferendis cupiditate quas, qui illo iusto est quo
-          nisi architecto nulla. Animi soluta earum accusamus deleniti eos
-          fugiat saepe tempora quam at aliquid atque corporis, sed veniam esse a
-          ut sint debitis, adipisci corrupti modi impedit voluptatem et ipsa
-          odio! Ab fugiat labore provident saepe totam quia velit. Dolore quidem{' '}
+          The Olympic Games, the world's most prestigious and celebrated
+          sporting event, capture the hearts and minds of people across the
+          globe. Held every four years, this extraordinary event brings together
+          athletes from all corners of the world to showcase their incredible
+          talents and dedication to the pursuit of excellence. Join us as we
+          embark on a journey to explore the magic and inspiration of the
+          Olympic Games. The Olympic Games have a rich and storied history that
+          dates back over two millennia. Originating in ancient Greece, the{' '}
           <span
             className='text-sky-600 cursor-pointer'
             onClick={() => navigate('/about')}

@@ -112,3 +112,27 @@ export const socialMedia = [
     link: 'https://www.linkedin.com/',
   },
 ]
+
+export const ourGroups = [
+  {
+    image:
+      'https://daman.co.id/daman.co.id/wp-content/uploads/2019/10/Robert-Downey-Jr-Glasses-3.jpg',
+    name: 'Robert Downye JR',
+    post: 'Founder & CEO',
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quibusdam asperiores ducimus, error quasi dolorum ex quaerat. Quod obcaecati repellendus, ab perferendis, velit aut, possimus officia temporibus nihil adipisci voluptas.',
+  },
+  {
+    image:
+      'https://marriedwiki.com/uploads/bio/2019/01/02/thumb/monica-barbaro-1546403076-260-260.jpeg',
+    name: 'Monicca Barbora',
+    post: 'HR',
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quibusdam asperiores ducimus, error quasi dolorum ex quaerat. Quod obcaecati repellendus, ab perferendis, velit aut, possimus officia temporibus nihil adipisci voluptas.',
+  },
+  {
+    image:
+      'https://th.bing.com/th/id/R.89778e8f3c8fe9874b7e647b039735a4?rik=m7NBfoGstaZcPw&pid=ImgRaw&r=0',
+    name: 'Tom Cruz',
+    post: 'Security chief',
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus quibusdam asperiores ducimus, error quasi dolorum ex quaerat. Quod obcaecati repellendus, ab perferendis, velit aut, possimus officia temporibus nihil adipisci voluptas.',
+  },
+]
