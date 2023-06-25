@@ -190,6 +190,19 @@ const videoSlice = createSlice({
       }
       state.filteredList = result
     },
+    showLatest: (state, action) => {
+      let result = [...state.filteredList]
+      state.descOrder = true
+      result = result.sort(
+        (a, b) => Number(new Date(a.createdAt)) - Number(new Date(b.createdAt))
+      )
+      state.filteredList = result
+    },
+    showPopular: (state, action) => {
+      let result = [...state.filteredList]
+      result = result.sort((a, b) => b.views - a.views)
+      state.filteredList = result
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -264,6 +277,12 @@ const videoSlice = createSlice({
       })
   },
 })
-export const { filterVideos, sortByLengthOf, sortByView, sortByDate } =
-  videoSlice.actions
+export const {
+  filterVideos,
+  sortByLengthOf,
+  sortByView,
+  sortByDate,
+  showPopular,
+  showLatest,
+} = videoSlice.actions
 export default videoSlice.reducer
