@@ -101,7 +101,13 @@ const Videos = () => {
           </div>
         </div>
       </div>
-      <VideoList list={filteredList} />
+      {filteredList.length === 0 ? (
+        <h1 className='text-4xl font-semibold text-center'>
+          Sorry but nothing to show for you search.
+        </h1>
+      ) : (
+        <VideoList list={filteredList} />
+      )}
     </main>
   )
 }

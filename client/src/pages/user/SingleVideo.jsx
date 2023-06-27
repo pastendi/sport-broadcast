@@ -11,6 +11,7 @@ const SingleVideo = () => {
   const { currentVideo, recommendation } = useSelector((store) => store.videos)
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
     dispatch(findVideoAction(id))
   }, [dispatch, id])
   if (!currentVideo) return <h1>Loading...</h1>

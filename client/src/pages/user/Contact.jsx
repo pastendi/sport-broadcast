@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import Input from '../../components/Form/Input'
 const data = {
   email: '',
   subject: '',
@@ -9,14 +10,17 @@ const Contact = () => {
   const handleChange = ({ currentTarget: input }) => {
     setValues({ ...values, [input.name]: input.value })
   }
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [])
   return (
     <main>
       <h1 className='flex text-center justify-center text-5xl border-b-4 pb-4 font-semibold border-orange-300'>
         Contact Us
       </h1>
-      <div className='flex gap-10'>
+      <div className='flex flex-col-reverse lg:flex-row gap-10'>
         <div className='flex-1 w-full max-w-4xl mx-auto'>
-          <div>
+          <div className='mt-4'>
             <h2 className='mb-6 text-3xl font-semibold text-center md:text-4xl'>
               FAQs
             </h2>
@@ -44,7 +48,7 @@ const Contact = () => {
                       <path
                         fill='none'
                         stroke='currentColor'
-                        stroke-width='5'
+                        strokeWidth='5'
                         d='M1 1l8 8 8-8'
                       />
                     </svg>
@@ -58,9 +62,12 @@ const Contact = () => {
             )
           })}
         </div>
-        <div className='flex-1'>
+        <div className='flex-1 space-y-4 my-6'>
+          <div className='w-full flex justify-center'>
+            <h1 className='text-4xl font-semibold'>Contact Form</h1>
+          </div>
           <div>
-            <input
+            <Input
               type='email'
               name='email'
               value={values.email}
@@ -69,7 +76,7 @@ const Contact = () => {
             />
           </div>
           <div>
-            <input
+            <Input
               type='text'
               name='subject'
               value={values.subject}
@@ -79,6 +86,7 @@ const Contact = () => {
           </div>
           <div>
             <textarea
+              className='w-full h-40 p-4 outline-none focus:border-sky-500 focus:border-2 rounded-md'
               type='text'
               name='message'
               value={values.message}
@@ -86,7 +94,9 @@ const Contact = () => {
               onChange={handleChange}
             />
           </div>
-          <button>send message</button>
+          <div className='w-full flex justify-center'>
+            <button className='btn bg-emerald-400 text-xl'>Send message</button>
+          </div>
         </div>
       </div>
     </main>

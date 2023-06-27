@@ -1,6 +1,10 @@
 import { ImQuotesLeft } from 'react-icons/im'
 import { ourGroups } from '../../constants'
+import { useEffect } from 'react'
 const About = () => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [])
   return (
     <main>
       <h1 className='title mt-10'>Olympic Games</h1>

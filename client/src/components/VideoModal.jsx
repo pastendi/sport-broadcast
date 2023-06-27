@@ -4,7 +4,15 @@ import { formatDistanceToNowStrict } from 'date-fns'
 import { AiFillEye } from 'react-icons/ai'
 import { BiCommentDetail } from 'react-icons/bi'
 import { FaPlay } from 'react-icons/fa'
-const VideoModal = ({ _id, title, thumbnail, views, comments, createdAt }) => {
+const VideoModal = ({
+  _id,
+  title,
+  thumbnail,
+  live,
+  views,
+  comments,
+  createdAt,
+}) => {
   const navigate = useNavigate()
   const date = useMemo(() => {
     if (!createdAt) {
