@@ -68,6 +68,7 @@ const getVideo = async (req, res) => {
   let recommendation = await Video.find({
     $and: [{ sport: video.sport }, { _id: { $ne: req.params.id } }],
   })
+  await Video.findByIdAndUpdate(req.params.id, { $inc: { views: 1 } })
   res.status(StatusCodes.OK).json({ video, recommendation })
 }
 

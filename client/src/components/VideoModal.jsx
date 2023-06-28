@@ -28,9 +28,14 @@ const VideoModal = ({
       <div className='relative w-full flex h-44  md:h-48  lg:h-52   rounded-t-lg overflow-hidden '>
         <img
           src={thumbnail}
-          className='transition-all ease-in-out duration-400 group-hover:scale-125'
+          className='transition-all ease-in-out duration-400 group-hover:scale-125 relative'
           alt='thumbnail'
         />
+        {live && (
+          <div className='btn absolute right-2 bottom-2 px-4 py-1 bg-red-600 text-lg font-semibold'>
+            Live
+          </div>
+        )}
         <div className='absolute inset-0 flex justify-center items-center'>
           <FaPlay size={44} className='text-gray-300 ' />
         </div>

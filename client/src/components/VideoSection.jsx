@@ -79,7 +79,7 @@ const VideoSection = ({ video }) => {
       </div>
       <div className=' w-full rounded-xl p-4 bg-slate-300 bg-opacity-70'>
         <div className='flex space-x-4 font-semibold'>
-          <p>223 Views</p>
+          <p>{video.views} views</p>
           <p>{age}</p>
         </div>
         <p>{video.description}</p>
