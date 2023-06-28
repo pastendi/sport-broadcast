@@ -5,6 +5,7 @@ require('express-async-errors')
 require('dotenv').config()
 const errorHandler = require('./middlewares/errorHandler')
 const notFound = require('./middlewares/notFound')
+const socket = require('socket.io')
 const app = express()
 app.use(express.json())
 app.use(cors())
@@ -30,4 +31,21 @@ app.use(notFound)
 app.use(errorHandler)
 connectDB()
 const port = process.env.PORT || 5000
-app.listen(port, console.log(`Server is running at port ${port}`))
+const server = app.listen(
+  port,
+  console.log(`Server is running at port ${port}`)
+)
+
+const io = socket(server, {
+  pingTimeout: 60000,
+  cors: {
+    origin: 'http://localhost:5173',
+  },
+})
+
+io.on('connection', (socket) => {
+  console.log('connected')
+  socket.on('newChat', (newChat) => {
+    io.emit('newMessage', newChat)
+  })
+})

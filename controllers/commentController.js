@@ -6,7 +6,6 @@ const filter = new Filter()
 
 const createComment = async (req, res) => {
   const { comment, videoId } = req.body
-  console.log()
   if (!comment) {
     throw new BadRequestError('Comment cannot be empty')
   }

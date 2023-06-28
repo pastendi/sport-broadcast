@@ -5,6 +5,7 @@ import videoReducer from './slices/videoSlice'
 import carouselReducer from './slices/carouselSlice'
 import sportReducer from './slices/sportSlice'
 import commentReducer from './slices/commentSlice'
+import chatReducer from './slices/chatSlice'
 const store = configureStore({
   reducer: {
     users: userReducer,
@@ -13,6 +14,7 @@ const store = configureStore({
     carousels: carouselReducer,
     sports: sportReducer,
     comments: commentReducer,
+    chats: chatReducer,
   },
 })
 
