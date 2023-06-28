@@ -15,7 +15,7 @@ const {
 
 router.route('/register').post(register)
 router.route('/login').post(login)
-router.route('/logout').get(logout)
+router.route('/logout').get(auth, logout)
 router.route('/admin/login').post(adminLogin)
 router.route('/').get(adminCheck, getUsers)
 router.route('/:id').get(adminCheck, getUser)

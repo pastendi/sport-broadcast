@@ -85,8 +85,16 @@ export const loginAdminAction = createAsyncThunk(
 export const logoutAction = createAsyncThunk(
   'user/logout',
   async (payload, { rejectWithValue, getState, dispatch }) => {
+    const user = getState()?.users
+    const { userAuth } = user
+    const config = {
+      headers: {
+        Authorization: userAuth ? `Bearer ${userAuth.token}` : null,
+      },
+    }
     try {
-      await axios.get(`${baseUrl}/api/user/logout`)
+      await axios.get(`${baseUrl}/api/user/logout`, config)
+
       // save user in local storage
       localStorage.removeItem('user')
     } catch (error) {

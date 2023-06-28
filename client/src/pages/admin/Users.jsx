@@ -33,7 +33,8 @@ const Users = () => {
   }
 
   const userData = useSelector((store) => store?.users)
-  const { filteredUsers } = userData
+  const { filteredUsers, users } = userData
+  const activeUsers = users?.filter((x) => x.isActive).length
   useEffect(() => {
     dispatch(fetchUsers())
     dispatch(setCurrentPage('Users'))
@@ -71,7 +72,7 @@ const Users = () => {
                   Email
                 </TableCell>
                 <TableCell sx={{ fontWeight: 'bolder', fontSize: '1.2rem' }}>
-                  Active
+                  {`Active "${activeUsers || 0}"`}
                 </TableCell>
                 <TableCell sx={{ fontWeight: 'bolder', fontSize: '1.2rem' }}>
                   Status
