@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { findVideoAction } from '../../redux/slices/videoSlice'
 import VideoSection from '../../components/VideoSection'
 import RecommendationVideoModel from '../../components/RecommendationVideoModel'
+import CommentSection from '../../components/CommentSection'
 
 const SingleVideo = () => {
   const dispatch = useDispatch()
@@ -21,7 +22,7 @@ const SingleVideo = () => {
         {/* left video side */}
         <VideoSection video={currentVideo} />
         {/* chat and recommendation side */}
-        <div className='basis-2/6'>
+        <div className='lg:basis-2/6'>
           <div className='gap-2'>
             <h1 className='text-xl sm:text-2xl font-semibold'>
               Recommendataions
@@ -32,6 +33,10 @@ const SingleVideo = () => {
               ))}
             </div>
           </div>
+        </div>
+        {/* comments in small screen */}
+        <div className='flex w-full lg:hidden'>
+          <CommentSection id={id} />
         </div>
       </div>
     </main>

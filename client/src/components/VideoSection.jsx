@@ -20,7 +20,7 @@ const VideoSection = ({ video }) => {
     return formatDistanceToNowStrict(new Date(video.createdAt))
   }, [video.createdAt])
   return (
-    <div id='video' className='basis-3/4 space-y-4'>
+    <div id='video' className='lg:basis-3/4 space-y-4'>
       <div className='aspect-video bg-sky-400'>
         <ReactPlayer
           controls
@@ -84,7 +84,9 @@ const VideoSection = ({ video }) => {
         </div>
         <p>{video.description}</p>
       </div>
-      <CommentSection id={video._id} />
+      <div className='hidden lg:flex'>
+        <CommentSection id={video._id} />
+      </div>
     </div>
   )
 }

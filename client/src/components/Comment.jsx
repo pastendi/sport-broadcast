@@ -10,12 +10,12 @@ const Comment = ({ comment, user, createdAt }) => {
   return (
     <div className='flex flex-col'>
       <div className='flex space-x-4'>
-        <p className='text-lg font-semibold flex items-center'>
+        <p className='text-base md:text-lg font-semibold flex items-center'>
           @{user.firstName}
         </p>
         <p className='text-sm flex items-center'>{age}</p>
       </div>
-      <p>{comment}</p>
+      <p className='text-sm md:text-base'>{comment}</p>
     </div>
   )
 }

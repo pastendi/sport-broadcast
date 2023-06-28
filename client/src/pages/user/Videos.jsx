@@ -43,8 +43,8 @@ const Videos = () => {
   return (
     <main>
       <div className='flex justify-between items-center py-10'>
-        <div className='w-full flex justify-between'>
-          <div className='w-96'>
+        <div className='w-full flex flex-col lg:flex-row gap-4 justify-between'>
+          <div className='w-full lg:w-96'>
             <input
               name='searchText'
               value={searchText}
@@ -53,9 +53,11 @@ const Videos = () => {
               className='py-2 px-4  w-full text-lg rounded-md outline-none focus:border-sky-500  focus:border-[1px]'
             />
           </div>
-          <div className='flex space-x-8 items-center'>
-            <div className='flex space-x-2 justify-center items-center'>
-              <p className='text-lg font-semibold'>Sport</p>
+          <div className='flex flex-col space-y-2 sm:space-y-0 sm:flex-row sm:gap-8 '>
+            <div className='flex space-x-2  items-center'>
+              <p className='text-sm sm:text-base lg:text-lg font-semibold'>
+                Sport
+              </p>
               <Select
                 sx={{ width: 150, maxHeight: 100 }}
                 size='small'
@@ -74,7 +76,9 @@ const Videos = () => {
               </Select>
             </div>
             <div className='flex items-center space-x-2'>
-              <p className='text-lg font-semibold'>Sort by</p>
+              <p className='text-sm sm:text-base lg:text-lg font-semibold'>
+                Sort by
+              </p>
               <Select
                 sx={{ width: 150, maxHeight: 100 }}
                 size='small'

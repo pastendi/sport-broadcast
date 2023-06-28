@@ -22,16 +22,16 @@ const CommentSection = ({ id }) => {
     }
   }, [dispatch, id])
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex w-full flex-col gap-4'>
       <p>{comments?.length || 0} Comments</p>
       {appErr && <Errors errors={appErr} />}
-      <form className='flex'>
+      <form className='flex w-full'>
         <input
           type='text'
           value={comment}
           placeholder='Comment....'
           onChange={(e) => setComment(e.target.value)}
-          className='px-3 py-1 w-full bg-none outline-none'
+          className='flex-1 px-3 py-1 w-full bg-none outline-none'
         />
         <button
           className='px-3 py-1 bg-slate-300 bg-opacity-70 hover:bg-opacity-100'

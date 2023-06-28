@@ -6,7 +6,7 @@ const Footer = () => {
     <main className='flex-col pt-20'>
       <div className='flex justify-between w-full flex-col lg:flex-row mb-8 '>
         {/* logo and motto */}
-        <div className='flex flex-1 sm:items-center flex-col sm:flex-row sm:justify-between lg:justify-start lg:items-start lg:flex-col'>
+        <div className='flex flex-1  flex-col md:flex-row md:justify-between lg:justify-start lg:items-start lg:flex-col'>
           <div className='flex items-center z-30 '>
             <div
               id='logo'
