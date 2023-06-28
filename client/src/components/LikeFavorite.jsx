@@ -13,26 +13,26 @@ const LikeFavorite = ({ video }) => {
   const { userAuth } = useSelector((store) => store.users)
   return (
     <div className='flex w-full flex-row-reverse gap-4'>
-      <div className=' rounded-xl bg-slate-300 bg-opacity-70 py-1 px-4'>
+      <div className='flex rounded-xl bg-slate-300 bg-opacity-70 py-1 px-4'>
         {userAuth?.favorites?.includes(video._id) ? (
-          <div className='flex items-center'>
-            <button
-              className='text-blue-600'
-              onClick={() => dispatch(handleFavorite(video?._id))}
-            >
-              <MdBookmarkAdded />
+          <div
+            className='flex items-center cursor-pointer'
+            onClick={() => dispatch(handleFavorite(video?._id))}
+          >
+            <button className='text-blue-600'>
+              <MdBookmarkAdded size={24} />
             </button>
-            <span className='font-sembold text-blue-600'>Saved</span>
+            <span className='font-sembold text-blue-600'> Saved</span>
           </div>
         ) : (
-          <div className='flex items-center'>
-            <button
-              className='text-green-600'
-              onClick={() => dispatch(handleFavorite(video?._id))}
-            >
-              <MdBookmarkAdd />
+          <div
+            className='flex items-center cursor-pointer'
+            onClick={() => dispatch(handleFavorite(video?._id))}
+          >
+            <button className='text-green-600'>
+              <MdBookmarkAdd size={24} />
             </button>
-            <span className='font-sembold text-green-600'>Save</span>
+            <span className='font-sembold text-green-600'> Save</span>
           </div>
         )}
       </div>
@@ -43,11 +43,11 @@ const LikeFavorite = ({ video }) => {
               className='text-blue-500'
               onClick={() => dispatch(likeVideoAction(video?._id))}
             >
-              <BsHandThumbsUpFill />
+              <BsHandThumbsUpFill size={20} />
             </button>
           ) : (
             <button onClick={() => dispatch(likeVideoAction(video?._id))}>
-              <BsHandThumbsUp />
+              <BsHandThumbsUp size={20} />
             </button>
           )}
 
@@ -59,11 +59,11 @@ const LikeFavorite = ({ video }) => {
               className='text-blue-500'
               onClick={() => dispatch(dislikeVideoAction(video?._id))}
             >
-              <BsHandThumbsDownFill />
+              <BsHandThumbsDownFill size={20} />
             </button>
           ) : (
             <button onClick={() => dispatch(dislikeVideoAction(video?._id))}>
-              <BsHandThumbsDown />
+              <BsHandThumbsDown size={20} />
             </button>
           )}
           <span>{` ${video.disLikes?.length || 0}`}</span>

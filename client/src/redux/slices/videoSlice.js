@@ -240,9 +240,8 @@ const videoSlice = createSlice({
     },
     showLatest: (state, action) => {
       let result = [...state.filteredList]
-      state.descOrder = true
       result = result.sort(
-        (a, b) => Number(new Date(a.createdAt)) - Number(new Date(b.createdAt))
+        (a, b) => Number(new Date(b.createdAt)) - Number(new Date(a.createdAt))
       )
       state.filteredList = result
     },

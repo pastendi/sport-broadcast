@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Errors from '../../components/Form/Errors'
 import Input from '../../components/Form/Input'
 import Button from '../../components/Form/Button'
@@ -15,14 +15,17 @@ const CPanel = () => {
   const navigate = useNavigate()
   const [values, setValues] = useState(data)
   const userData = useSelector((store) => store.users)
-  const { loading, appErr, serverErr, registered, userAuth } = userData
+  const { loading, appErr, serverErr, fulfilled, userAuth } = userData
 
   const handleChange = ({ currentTarget: input }) => {
     setValues({ ...values, [input.name]: input.value })
   }
-  if (userAuth) {
-    navigate('/admin/')
-  }
+  useEffect(() => {
+    if (userAuth?.username === 'admin') {
+      navigate('/admin/')
+    }
+  }, userAuth)
+
   return (
     <div className='fixed inset-0 flex justify-center items-center'>
       <div className=' flex w-[500px]  items-center rounded-xl flex-col space-y-4 mx-auto bg-blue-500 p-6'>

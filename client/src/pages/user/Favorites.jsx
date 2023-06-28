@@ -13,7 +13,7 @@ const Favorites = () => {
       dispatch(fetchVideosAction())
     }
   }, [dispatch])
-  if (favorites === 0)
+  if (favorites.length === 0)
     return (
       <h1 className='text-4xl mt-20 text-center'>
         No video added to favorite list yet

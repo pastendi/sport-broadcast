@@ -9,10 +9,12 @@ const { StatusCodes } = require('http-status-codes')
 
 // register
 const register = async (req, res) => {
-  const { email } = req?.body
+  const { email, password, cPassword } = req?.body
   const userExist = await User.findOne({ email })
   if (userExist)
     throw new BadRequestError('Account with this email already exist')
+  if (password !== cPassword)
+    throw new BadRequestError('Both password should match')
   const user = await User.create({ ...req.body, isActive: true })
   const token = createJWT(user._id)
   await User.findOneAndUpdate({ email }, { $set: { isActive: true } })
