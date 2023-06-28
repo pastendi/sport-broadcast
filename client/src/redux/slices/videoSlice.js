@@ -124,6 +124,54 @@ export const deleteVideoAction = createAsyncThunk(
     }
   }
 )
+export const likeVideoAction = createAsyncThunk(
+  'videos/like',
+  async (id, { rejectWithValue, getState, dispatch }) => {
+    const userStore = getState()?.users
+    const { userAuth } = userStore
+    const config = {
+      headers: {
+        Authorization: userAuth ? `Bearer ${userAuth.token}` : null,
+      },
+    }
+    try {
+      const { data } = await axios.get(
+        `${baseUrl}/api/video/like/${id}`,
+        config
+      )
+      return data
+    } catch (error) {
+      if (!error?.response) {
+        throw error
+      }
+      return rejectWithValue(error?.response?.data)
+    }
+  }
+)
+export const dislikeVideoAction = createAsyncThunk(
+  'videos/dislike',
+  async (id, { rejectWithValue, getState, dispatch }) => {
+    const userStore = getState()?.users
+    const { userAuth } = userStore
+    const config = {
+      headers: {
+        Authorization: userAuth ? `Bearer ${userAuth.token}` : null,
+      },
+    }
+    try {
+      const { data } = await axios.get(
+        `${baseUrl}/api/video/dislike/${id}`,
+        config
+      )
+      return data
+    } catch (error) {
+      if (!error?.response) {
+        throw error
+      }
+      return rejectWithValue(error?.response?.data)
+    }
+  }
+)
 
 const videoSlice = createSlice({
   name: 'videos',
@@ -271,6 +319,36 @@ const videoSlice = createSlice({
         state.serverErr = undefined
       })
       .addCase(deleteVideoAction.rejected, (state, action) => {
+        state.loading = false
+        state.appErr = action?.payload?.msg
+        state.serverErr = action?.error?.message
+      })
+      .addCase(likeVideoAction.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(likeVideoAction.fulfilled, (state, action) => {
+        state.loading = false
+        state.currentVideo.likes = action.payload.video.likes
+        state.currentVideo.disLikes = action.payload.video.disLikes
+        state.appErr = undefined
+        state.serverErr = undefined
+      })
+      .addCase(likeVideoAction.rejected, (state, action) => {
+        state.loading = false
+        state.appErr = action?.payload?.msg
+        state.serverErr = action?.error?.message
+      })
+      .addCase(dislikeVideoAction.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(dislikeVideoAction.fulfilled, (state, action) => {
+        state.loading = false
+        state.currentVideo.likes = action.payload.video.likes
+        state.currentVideo.disLikes = action.payload.video.disLikes
+        state.appErr = undefined
+        state.serverErr = undefined
+      })
+      .addCase(dislikeVideoAction.rejected, (state, action) => {
         state.loading = false
         state.appErr = action?.payload?.msg
         state.serverErr = action?.error?.message

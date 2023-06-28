@@ -4,7 +4,6 @@ const { cloudinaryUpload, cloudinaryDelete } = require('../utils/cloudinary')
 const removeFile = require('../utils/removeFile')
 
 const createVideo = async (req, res) => {
-  console.log(req.body)
   const storagePath = `temp/${req.file?.fileName}`
   const upload = await cloudinaryUpload(storagePath)
   if (upload) {
@@ -71,11 +70,74 @@ const getVideo = async (req, res) => {
   await Video.findByIdAndUpdate(req.params.id, { $inc: { views: 1 } })
   res.status(StatusCodes.OK).json({ video, recommendation })
 }
-
+const likeVideo = async (req, res) => {
+  const userId = req.userId
+  let video = await Video.findById(req.params.id)
+  if (video.likes.includes(userId)) {
+    video = await Video.findByIdAndUpdate(
+      req.params.id,
+      {
+        $pull: { likes: userId },
+      },
+      { new: true }
+    )
+  } else {
+    if (video.disLikes.includes(userId)) {
+      video = await Video.findByIdAndUpdate(
+        req.params.id,
+        {
+          $pull: { disLikes: userId },
+          $push: { likes: userId },
+        },
+        { new: true }
+      )
+    } else {
+      video = await Video.findByIdAndUpdate(
+        req.params.id,
+        { $push: { likes: userId } },
+        { new: true }
+      )
+    }
+  }
+  res.status(StatusCodes.OK).json({ video })
+}
+const disLikeVideo = async (req, res) => {
+  const userId = req.userId
+  let video = await Video.findById(req.params.id)
+  if (video.disLikes.includes(userId)) {
+    video = await Video.findByIdAndUpdate(
+      req.params.id,
+      {
+        $pull: { disLikes: userId },
+      },
+      { new: true }
+    )
+  } else {
+    if (video.likes.includes(userId)) {
+      video = await Video.findByIdAndUpdate(
+        req.params.id,
+        {
+          $pull: { likes: userId },
+          $push: { disLikes: userId },
+        },
+        { new: true }
+      )
+    } else {
+      video = await Video.findByIdAndUpdate(
+        req.params.id,
+        { $push: { disLikes: userId } },
+        { new: true }
+      )
+    }
+  }
+  res.status(StatusCodes.OK).json({ video })
+}
 module.exports = {
   createVideo,
   updateVideo,
   getAllVideos,
   getVideo,
   deleteVideo,
+  likeVideo,
+  disLikeVideo,
 }

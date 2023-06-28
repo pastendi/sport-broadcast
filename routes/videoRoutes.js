@@ -9,6 +9,8 @@ const {
   getAllVideos,
   getVideo,
   deleteVideo,
+  likeVideo,
+  disLikeVideo,
 } = require('../controllers/videoController')
 
 router
@@ -20,5 +22,7 @@ router
   .patch(adminCheck, uploadImage.single('image'), resizeVideoImage, updateVideo)
   .get(getVideo)
   .delete(adminCheck, deleteVideo)
+router.route('/like/:id').get(auth, likeVideo)
+router.route('/dislike/:id').get(auth, disLikeVideo)
 
 module.exports = router
