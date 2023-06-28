@@ -12,6 +12,7 @@ import {
   setShowAddVideoModal,
   setShowEditVideoModal,
   setShowDeleteVideoModal,
+  setShowManageCommentsModal,
 } from '../../redux/slices/appSlice'
 import { useEffect } from 'react'
 import {
@@ -28,6 +29,7 @@ import EditVideoModal from '../../components/EditVideoModal'
 import { fetchSportCategory } from '../../redux/slices/sportSlice'
 import DeleteVideoModal from '../../components/DeleteVideoModal'
 import { MenuItem, Select } from '@mui/material'
+import ManageComments from '../../components/ManageCommets'
 
 const ManageVideos = () => {
   const dispatch = useDispatch()
@@ -41,8 +43,12 @@ const ManageVideos = () => {
   const videoStore = useSelector((store) => store.videos)
   const { filteredList } = videoStore
   const appStore = useSelector((store) => store.app)
-  const { showAddVideoModal, showEditVideoModal, showDeleteVideoModal } =
-    appStore
+  const {
+    showAddVideoModal,
+    showEditVideoModal,
+    showDeleteVideoModal,
+    showManageCommentsModal,
+  } = appStore
   const sportData = useSelector((store) => store.sports)
   const { sports } = sportData
   const MenuProps = {
@@ -71,6 +77,7 @@ const ManageVideos = () => {
   if (!filteredList) return <h1>Nothing to show</h1>
   return (
     <>
+      {showManageCommentsModal && <ManageComments />}
       {showAddVideoModal && <AddVideoModal />}
       {showEditVideoModal && <EditVideoModal />}
       {showDeleteVideoModal && <DeleteVideoModal />}
@@ -113,6 +120,14 @@ const ManageVideos = () => {
           </div>
         </div>
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+          <TablePagination
+            component='div'
+            rowsPerPageOptions={[5]}
+            count={filteredList?.length || 0}
+            rowsPerPage={videosPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+          />
           <TableContainer>
             <Table
               sx={{ minWidth: 650 }}
@@ -216,7 +231,17 @@ const ManageVideos = () => {
                         <p className='text-right'>
                           {row.comments?.length || 0}
                         </p>
-                        <button className='btn  bg-orange-600 hover:bg-orange-500 block float-right'>
+                        <button
+                          className='btn  bg-orange-600 hover:bg-orange-500 block float-right'
+                          onClick={() =>
+                            dispatch(
+                              setShowManageCommentsModal({
+                                video: row,
+                                show: true,
+                              })
+                            )
+                          }
+                        >
                           Show
                         </button>
                       </TableCell>

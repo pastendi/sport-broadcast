@@ -8,8 +8,7 @@ import { updateVideoAction } from '../redux/slices/videoSlice'
 
 const EditVideoModal = () => {
   const dispatch = useDispatch()
-  const appData = useSelector((store) => store.app)
-  const { selected } = appData
+  const { selected } = useSelector((store) => store.app)
   const { title, description, url, thumbnail, sport, live } = selected
   const [values, setValues] = useState({
     title,
@@ -20,10 +19,9 @@ const EditVideoModal = () => {
     thumbnail,
     image: null,
   })
-  const videoData = useSelector((store) => store.videos)
-  const { loading, appErr } = videoData
-  const sportData = useSelector((store) => store.sports)
-  const { sports } = sportData
+  const { loading, appErr } = useSelector((store) => store.videos)
+
+  const { sports } = useSelector((store) => store.sports)
   const MenuProps = {
     PaperProps: {
       style: {
