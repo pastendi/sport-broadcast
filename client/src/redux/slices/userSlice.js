@@ -153,6 +153,30 @@ export const blockUnblock = createAsyncThunk(
     }
   }
 )
+export const handleFavorite = createAsyncThunk(
+  'user/handling favorite',
+  async (videoId, { rejectWithValue, getState, dispatch }) => {
+    const user = getState()?.users
+    const { userAuth } = user
+    const config = {
+      headers: {
+        Authorization: userAuth ? `Bearer ${userAuth.token}` : null,
+      },
+    }
+    try {
+      const { data } = await axios.get(
+        `${baseUrl}/api/user/favorite/${videoId}`,
+        config
+      )
+      return data
+    } catch (error) {
+      if (!error?.response) {
+        throw error
+      }
+      return rejectWithValue(error?.response?.data)
+    }
+  }
+)
 
 const storedUser = localStorage.getItem('user')
 // Slice
@@ -268,6 +292,20 @@ const userSlice = createSlice({
         state.serverErr = undefined
       })
       .addCase(blockUnblock.rejected, (state, action) => {
+        state.loading = false
+        state.appErr = action?.payload?.msg
+        state.serverErr = action?.error?.message
+      })
+      .addCase(handleFavorite.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(handleFavorite.fulfilled, (state, action) => {
+        state.loading = false
+        state.userAuth.favorites = action?.payload?.favorites
+        state.appErr = undefined
+        state.serverErr = undefined
+      })
+      .addCase(handleFavorite.rejected, (state, action) => {
         state.loading = false
         state.appErr = action?.payload?.msg
         state.serverErr = action?.error?.message

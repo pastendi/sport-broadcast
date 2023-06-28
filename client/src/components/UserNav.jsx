@@ -10,14 +10,30 @@ import {
   setShowLoginModal,
   setShowRegisterModal,
 } from '../redux/slices/appSlice'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 const UserNav = () => {
+  const dropdownRef = useRef(null)
   const [showUserOption, setShowUserOption] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const userData = useSelector((store) => store.users)
   const { userAuth } = userData
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setShowUserOption(false)
+    }
+  }
+
   const [menuClicked, setMenuClicked] = useState(false)
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
   return (
     <main>
       <div className='flex items-center justify-between space-x-10 py-2'>
@@ -56,7 +72,10 @@ const UserNav = () => {
                 <span>{`Hi ${userAuth.username}`}</span> <AiFillSetting />
               </div>
               {showUserOption && (
-                <div className='hidden md:block z-20 absolute top-9 right-0 bg-orange-300 text-black w-32 p-2 space-y-2 rounded-md text-left'>
+                <div
+                  ref={dropdownRef}
+                  className='hidden md:block z-20 absolute top-9 right-0 bg-orange-300 text-black w-32 p-2 space-y-2 rounded-md text-left'
+                >
                   <p
                     className='cursor-pointer px-2 py-1 rounded-md hover:bg-orange-200'
                     onClick={() => {

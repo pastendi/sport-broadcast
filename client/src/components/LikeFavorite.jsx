@@ -7,6 +7,7 @@ import {
 import { MdBookmarkAdd, MdBookmarkAdded } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 import { dislikeVideoAction, likeVideoAction } from '../redux/slices/videoSlice'
+import { handleFavorite } from '../redux/slices/userSlice'
 const LikeFavorite = ({ video }) => {
   const dispatch = useDispatch()
   const { userAuth } = useSelector((store) => store.users)
@@ -15,14 +16,20 @@ const LikeFavorite = ({ video }) => {
       <div className=' rounded-xl bg-slate-300 bg-opacity-70 py-1 px-4'>
         {userAuth?.favorites?.includes(video._id) ? (
           <div className='flex items-center'>
-            <button className='text-blue-600'>
+            <button
+              className='text-blue-600'
+              onClick={() => dispatch(handleFavorite(video?._id))}
+            >
               <MdBookmarkAdded />
             </button>
             <span className='font-sembold text-blue-600'>Saved</span>
           </div>
         ) : (
           <div className='flex items-center'>
-            <button className='text-green-600'>
+            <button
+              className='text-green-600'
+              onClick={() => dispatch(handleFavorite(video?._id))}
+            >
               <MdBookmarkAdd />
             </button>
             <span className='font-sembold text-green-600'>Save</span>

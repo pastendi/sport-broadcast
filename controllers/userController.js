@@ -110,6 +110,24 @@ const getUser = async (req, res) => {
   const user = await User.findById(req.params.id)
   res.json({ user })
 }
+const handleFavorite = async (req, res) => {
+  const videoId = req.params.videoId
+  let user = await User.findById(req.userId)
+  if (user.favorites.includes(videoId)) {
+    user = await User.findByIdAndUpdate(
+      req.userId,
+      { $pull: { favorites: videoId } },
+      { new: true }
+    )
+  } else {
+    user = await User.findByIdAndUpdate(
+      req.userId,
+      { $push: { favorites: videoId } },
+      { new: true }
+    )
+  }
+  res.status(StatusCodes.OK).json({ favorites: user.favorites })
+}
 
 module.exports = {
   register,
@@ -120,4 +138,5 @@ module.exports = {
   getUser,
   adminLogin,
   logout,
+  handleFavorite,
 }

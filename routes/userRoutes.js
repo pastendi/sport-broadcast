@@ -11,6 +11,7 @@ const {
   getUser,
   adminLogin,
   logout,
+  handleFavorite,
 } = require('../controllers/userController')
 
 router.route('/register').post(register)
@@ -20,6 +21,7 @@ router.route('/admin/login').post(adminLogin)
 router.route('/').get(adminCheck, getUsers)
 router.route('/:id').get(adminCheck, getUser)
 router.route('/block-unblock/:userId').get(adminCheck, blockUnblock)
+router.route('/favorite/:videoId').get(auth, handleFavorite)
 router.route('/change-password').patch(changePassword)
 
 module.exports = router
