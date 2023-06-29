@@ -14,7 +14,6 @@ const data = {
 }
 const Dashboard = () => {
   const [stat, setStat] = useState(data)
-  console.log(stat)
   const dispatch = useDispatch()
   const { videoList } = useSelector((store) => store.videos)
   const { users } = useSelector((store) => store.users)

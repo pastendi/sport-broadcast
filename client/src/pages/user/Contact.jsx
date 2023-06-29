@@ -1,14 +1,26 @@
 import { useEffect, useState } from 'react'
 import Input from '../../components/Form/Input'
+import { useDispatch, useSelector } from 'react-redux'
+import { sendMessage } from '../../redux/slices/messageSlice'
+import Errors from '../../components/Form/Errors'
 const data = {
   email: '',
   subject: '',
   message: '',
 }
 const Contact = () => {
+  const dispatch = useDispatch()
   const [values, setValues] = useState(data)
+
+  const { appErr, success } = useSelector((store) => store.messages)
   const handleChange = ({ currentTarget: input }) => {
     setValues({ ...values, [input.name]: input.value })
+  }
+  const addMessage = () => {
+    dispatch(sendMessage(values))
+    if (!appErr) {
+      setValues(data)
+    }
   }
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -66,6 +78,7 @@ const Contact = () => {
           <div className='w-full flex justify-center'>
             <h1 className='text-4xl font-semibold'>Contact Form</h1>
           </div>
+          {appErr && <Errors errors={appErr} />}
           <div>
             <Input
               type='email'
@@ -95,7 +108,9 @@ const Contact = () => {
             />
           </div>
           <div className='w-full flex justify-center'>
-            <button className='btn bg-emerald-400 text-xl'>Send message</button>
+            <button className='btn bg-emerald-400 text-xl' onClick={addMessage}>
+              Send message
+            </button>
           </div>
         </div>
       </div>

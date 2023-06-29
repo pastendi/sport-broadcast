@@ -4,6 +4,8 @@ import { formatDistanceToNowStrict } from 'date-fns'
 import { AiFillEye } from 'react-icons/ai'
 import { BiCommentDetail } from 'react-icons/bi'
 import { FaPlay } from 'react-icons/fa'
+import { useDispatch, useSelector } from 'react-redux'
+import { setShowLoginModal } from '../redux/slices/appSlice'
 const VideoModal = ({
   _id,
   title,
@@ -13,6 +15,7 @@ const VideoModal = ({
   comments,
   createdAt,
 }) => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const date = useMemo(() => {
     if (!createdAt) {
@@ -20,11 +23,18 @@ const VideoModal = ({
     }
     return formatDistanceToNowStrict(new Date(createdAt))
   }, [createdAt])
+
+  const { userAuth } = useSelector((store) => store.users)
+
+  const watchVideo = () => {
+    if (userAuth) {
+      navigate(`/video/${_id}`)
+    } else {
+      dispatch(setShowLoginModal(true))
+    }
+  }
   return (
-    <div
-      className=' rounded-lg bg-purple-300 group'
-      onClick={() => navigate(`/video/${_id}`)}
-    >
+    <div className=' rounded-lg bg-purple-300 group' onClick={watchVideo}>
       <div className='relative w-full flex h-44  md:h-48  lg:h-52   rounded-t-lg overflow-hidden '>
         <img
           src={thumbnail}

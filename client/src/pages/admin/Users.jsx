@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FaRegDotCircle } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   setCurrentPage,
   setShowBlockConfirmationModal,
 } from '../../redux/slices/appSlice'
-import {
-  fetchUsers,
-  blockUnblock,
-  filterUsers,
-} from '../../redux/slices/userSlice'
+import { fetchUsers, filterUsers } from '../../redux/slices/userSlice'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'

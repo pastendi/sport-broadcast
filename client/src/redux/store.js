@@ -6,6 +6,7 @@ import carouselReducer from './slices/carouselSlice'
 import sportReducer from './slices/sportSlice'
 import commentReducer from './slices/commentSlice'
 import chatReducer from './slices/chatSlice'
+import messageReducer from './slices/messageSlice'
 const store = configureStore({
   reducer: {
     users: userReducer,
@@ -15,6 +16,7 @@ const store = configureStore({
     sports: sportReducer,
     comments: commentReducer,
     chats: chatReducer,
+    messages: messageReducer,
   },
 })
 

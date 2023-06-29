@@ -16,6 +16,7 @@ import {
   Carousel,
   ManageVideo,
   Users,
+  Messages,
 } from './pages/admin'
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path='carousel' element={<Carousel />} />
           <Route path='videos' element={<ManageVideo />} />
           <Route path='users' element={<Users />} />
+          <Route path='messages' element={<Messages />} />
         </Route>
         <Route path='/' element={<UserLayout />}>
           <Route index element={<Home />} />

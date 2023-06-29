@@ -287,7 +287,6 @@ const userSlice = createSlice({
       })
       .addCase(blockUnblock.fulfilled, (state, action) => {
         state.loading = false
-        state.users = action?.payload
         state.appErr = undefined
         state.serverErr = undefined
       })
