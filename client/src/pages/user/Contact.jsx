@@ -3,6 +3,7 @@ import Input from '../../components/Form/Input'
 import { useDispatch, useSelector } from 'react-redux'
 import { sendMessage } from '../../redux/slices/messageSlice'
 import Errors from '../../components/Form/Errors'
+
 const data = {
   email: '',
   subject: '',

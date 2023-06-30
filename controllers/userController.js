@@ -100,12 +100,12 @@ const blockUnblock = async (req, res) => {
     await User.findByIdAndUpdate(userId, {
       $set: { isBlocked: false },
     })
-    res.status(StatusCodes.OK).json('The user is unblocked')
+    res.status(StatusCodes.OK).json({ msg: 'The user is unblocked' })
   } else {
     await User.findByIdAndUpdate(userId, {
       $set: { isBlocked: true },
     })
-    res.status(StatusCodes.OK).json('The user is blocked')
+    res.status(StatusCodes.OK).json({ msg: 'The user is blocked' })
   }
 }
 const getUser = async (req, res) => {

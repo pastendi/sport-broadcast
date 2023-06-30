@@ -5,6 +5,7 @@ import AdminNav from '../../components/AdminNav'
 import BlockConfirmationModal from '../../components/BlockConfirmationModal'
 import { useSelector } from 'react-redux'
 import EditCarouselModel from '../../components/EditCarouselModel'
+import { ToastContainer } from 'react-toastify'
 
 const AdminLayout = () => {
   const store = useSelector((store) => store.app)
@@ -15,6 +16,7 @@ const AdminLayout = () => {
     return <Navigate to='/cpanel' />
   return (
     <>
+      <ToastContainer position='bottom-right' autoClose={3000} />
       {showBlockConfirmationModal && <BlockConfirmationModal />}
       {showEditCarouselModel && <EditCarouselModel />}
       <div className='w-full h-screen max-h-screen flex'>

@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { baseUrl } from '../../constants'
 import axios from 'axios'
 import { setShowEditCarouselModel } from './appSlice'
-
+import { toast } from 'react-toastify'
 export const fetchCarousels = createAsyncThunk(
   'carousels/getAll',
   async (image, { rejectWithValue, getState, dispatch }) => {
@@ -71,6 +71,7 @@ const carouselSlice = createSlice({
         state.loading = true
       })
       .addCase(changeCarausel.fulfilled, (state, action) => {
+        toast.success(action.payload.msg)
         state.loading = false
       })
       .addCase(changeCarausel.rejected, (state, action) => {

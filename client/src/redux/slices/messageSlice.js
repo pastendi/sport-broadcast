@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { baseUrl } from '../../constants'
-
+import { toast } from 'react-toastify'
 export const getAllMessages = createAsyncThunk(
   'message/get all messages',
   async (values, { rejectWithValue, getState, dispatch }) => {
@@ -73,8 +73,8 @@ const messageSlice = createSlice({
         state.loading = true
       })
       .addCase(sendMessage.fulfilled, (state, action) => {
+        toast.success(action.payload.msg)
         state.loading = false
-        state.success = action.payload.msg
         state.appErr = undefined
         state.serverErr = undefined
       })

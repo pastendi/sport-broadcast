@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { baseUrl } from '../../constants'
 import { fetchVideosAction } from './videoSlice'
-
+import { toast } from 'react-toastify'
 export const getAllComments = createAsyncThunk(
   'comment/ getallComments',
   async (videoId, { rejectWithValue, getState, dispatch }) => {
@@ -113,6 +113,7 @@ const commentSlice = createSlice({
         state.loading = true
       })
       .addCase(deleteComment.fulfilled, (state, action) => {
+        toast.success('Comment removed')
         state.loading = false
         state.appErr = undefined
         state.serverErr = undefined

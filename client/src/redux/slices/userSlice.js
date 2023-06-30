@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { baseUrl } from '../../constants'
 import { setShowBlockConfirmationModal } from './appSlice'
+import { toast } from 'react-toastify'
 
 // register action
 
@@ -206,6 +207,7 @@ const userSlice = createSlice({
         state.serverErr = undefined
       })
       .addCase(registerUserAction.fulfilled, (state, action) => {
+        toast.success(action.payload.msg)
         state.loading = false
         state.userAuth = action?.payload
         state.appErr = undefined
@@ -223,12 +225,14 @@ const userSlice = createSlice({
         state.serverErr = undefined
       })
       .addCase(loginUserAction.fulfilled, (state, action) => {
+        toast.success(action?.payload.msg)
         state.loading = false
         state.userAuth = action?.payload
         state.appErr = undefined
         state.serverErr = undefined
       })
       .addCase(loginUserAction.rejected, (state, action) => {
+        toast.error(action?.payload?.msg)
         state.loading = false
         state.appErr = action?.payload?.msg
         state.serverErr = action?.error?.message
@@ -240,6 +244,7 @@ const userSlice = createSlice({
         state.serverErr = undefined
       })
       .addCase(loginAdminAction.fulfilled, (state, action) => {
+        toast.success(action.payload.msg)
         state.loading = false
         state.userAuth = action?.payload
         state.appErr = undefined
@@ -255,6 +260,7 @@ const userSlice = createSlice({
         state.loading = true
       })
       .addCase(logoutAction.fulfilled, (state, action) => {
+        toast.success('Logout successful')
         state.loading = false
         state.userAuth = undefined
         state.appErr = undefined
@@ -286,6 +292,7 @@ const userSlice = createSlice({
         state.loading = true
       })
       .addCase(blockUnblock.fulfilled, (state, action) => {
+        toast.success(action.payload.msg)
         state.loading = false
         state.appErr = undefined
         state.serverErr = undefined

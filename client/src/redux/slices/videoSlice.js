@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { baseUrl } from '../../constants'
+import { toast } from 'react-toastify'
 import {
   setShowAddVideoModal,
   setShowEditVideoModal,
@@ -272,6 +273,7 @@ const videoSlice = createSlice({
         state.loading = true
       })
       .addCase(createNewVideo.fulfilled, (state, action) => {
+        toast.success('New video add')
         state.loading = false
         state.appErr = undefined
         state.serverErr = undefined
@@ -285,6 +287,7 @@ const videoSlice = createSlice({
         state.loading = true
       })
       .addCase(updateVideoAction.fulfilled, (state, action) => {
+        toast.info('Video updated')
         state.loading = false
         state.appErr = undefined
         state.serverErr = undefined
@@ -313,6 +316,7 @@ const videoSlice = createSlice({
         state.loading = true
       })
       .addCase(deleteVideoAction.fulfilled, (state, action) => {
+        toast.error('Video removed')
         state.loading = false
         state.appErr = undefined
         state.serverErr = undefined
