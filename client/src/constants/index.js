@@ -5,7 +5,7 @@ import { TiMessages } from 'react-icons/ti'
 import { FiUsers } from 'react-icons/fi'
 import { instagram, facebook, twitter, linkedin } from '../assets'
 
-export const baseUrl = 'http://localhost:5000'
+export const baseUrl = 'https://olypsport-api.onrender.com'
 export const adminNavLinks = [
   { text: 'Dashboard', path: '/admin/', icon: IoBarChartSharp },
   {
